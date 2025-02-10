@@ -36,13 +36,6 @@ The package includes a complete [example app](/example) showing two use cases:
 - ⚡ State selection for optimized rebuilds
 - 📦 Dependency injection with locator
 
-## Installation
-
-```yaml
-dependencies:
-  minimal_mvn: ^1.0.0
-```
-
 ## State Management in 4 Steps
 
 ### 1. Create an immutable UI state
