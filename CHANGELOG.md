@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Guard from notifying when notifier has no subscribers
+
 ## 1.0.1
 
 * Fix logo URL in README.md
