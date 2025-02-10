@@ -22,7 +22,21 @@ abstract class MMNotifier<T extends MMState> extends ChangeNotifier {
   MMNotifier(this._state);
 
   int _listenersCount = 0;
+  bool _disposed = false;
   T _state;
+
+  /// Whether this notifier has been disposed. Subclasses can check this before
+  /// performing asynchronous operations that might occur after disposal
+  ///
+  /// Example:
+  /// ```dart
+  /// void increment() {
+  ///   if (disposed) return;
+  ///   notify(state.copyWith(value: state.value + 1));
+  /// }
+  /// ```
+  @protected
+  bool get disposed => _disposed;
 
   /// The current state managed by this notifier
   ///
@@ -99,6 +113,12 @@ abstract class MMNotifier<T extends MMState> extends ChangeNotifier {
       _listenersCount = 0;
       onUnsubscribed?.call();
     }
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
   }
 }
 
