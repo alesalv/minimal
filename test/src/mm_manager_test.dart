@@ -1,6 +1,7 @@
 // Let's make the tests more readable and explicit
 // ignore_for_file: cascade_invocations
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:minimal_mvn/minimal_mvn.dart';
 
@@ -57,6 +58,28 @@ void main() {
 
       expect(second, isNot(same(first)));
       expect(second.state.value, 0);
+    });
+
+    test('throws an error when accessing notifier after disposal', () {
+      final manager = MMManager(
+        TNotifier.new,
+        autodispose: true,
+      );
+
+      final notifier = manager.notifier;
+      notifier.increment();
+
+      // Adding and removing a listener triggers disposing the notifier
+      void l() {}
+      notifier
+        ..addListener(l)
+        ..removeListener(l);
+
+      expect(
+        notifier.increment,
+        throwsA(isA<FlutterError>()),
+        reason: 'Accessing notifier after disposal will throw an error',
+      );
     });
   });
 }
