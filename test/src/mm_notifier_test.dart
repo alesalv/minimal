@@ -74,5 +74,13 @@ void main() {
       expect(stateNotified, 3);
       expect(selectionNotified, 1);
     });
+
+    test('tracks disposed state', () {
+      final notifier = TNotifier();
+      expect(notifier.isDisposed, false);
+
+      notifier.dispose();
+      expect(notifier.isDisposed, true);
+    });
   });
 }

@@ -39,4 +39,6 @@ class TNotifier extends MMNotifier<TState> {
 
   void append(final String suffix) =>
       notify(state.copyWith(text: '${state.text}$suffix'));
+
+  bool get isDisposed => disposed;
 }

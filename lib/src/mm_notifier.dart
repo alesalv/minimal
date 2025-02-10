@@ -116,6 +116,7 @@ abstract class MMNotifier<T extends MMState> extends ChangeNotifier {
   }
 
   @override
+  @mustCallSuper
   void dispose() {
     _disposed = true;
     super.dispose();
