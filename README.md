@@ -2,6 +2,8 @@
   <img src="https://raw.githubusercontent.com/alesalv/minimal/main/example/assets/minimal.svg" width="100" alt="Minimal Logo">
 </p>
 
+[![Pub Version](https://img.shields.io/pub/v/minimal_mvn?label=minimal_mvn&labelColor=333940&logo=dart)](https://pub.dev/packages/minimal_mvn) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 # Minimal MVN
 
 A minimal state management package for Flutter. Part of a minimalistic architecture based on the MVN (Model-View-Notifier) pattern.
