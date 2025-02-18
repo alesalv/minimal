@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'counter/views/pages/counter_page.dart';
+import 'hydrator/settings/settings_manager.dart';
+import 'hydrator/settings/settings_screen.dart';
 import 'morphing_widget/views/pages/morphing_widget_page.dart';
 
 class MinimalApp extends StatelessWidget {
@@ -11,18 +13,20 @@ class MinimalApp extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light().copyWith(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF1E293B), // Dark blue-gray
-          foregroundColor: Colors.white, // For text and icons
-        ),
-      ),
+    final notifier = settingsManager.notifier;
+    return ListenableBuilder(
+        listenable: notifier,
+        builder: (final context, final _) {
+      return  MaterialApp(
+      themeMode: notifier.state.themeMode,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       home: const HomePage(),
+      );
+        },
     );
   }
 }
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -72,6 +76,18 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: const Text('Morphing Widget'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                unawaited(
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (final context) => const SettingsScreen(),
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Settings'),
             ),
           ],
         ),

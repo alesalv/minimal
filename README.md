@@ -35,6 +35,7 @@ The package includes a complete [example app](/example) showing two use cases:
 - 🔄 Optional autodispose for notifiers
 - ⚡ State selection for optimized rebuilds
 - 📦 Dependency injection with locator
+- 💾 State persistence with hydration
 
 ## State Management in 4 Steps
 
@@ -60,7 +61,7 @@ class MorphingWidgetNotifier extends MMNotifier<MorphingWidgetUIState> {
 
   void morph() => notify(
         state.copyWith(
-          backgroundColor: _randomColor(),
+          backgroundColor: *randomColor(),
           count: state.count + 1,
         ),
       );
@@ -73,7 +74,7 @@ class MorphingWidgetNotifier extends MMNotifier<MorphingWidgetUIState> {
 final notifier = morphingWidgetManager.notifier;
 return ListenableBuilder(
   listenable: notifier,
-  builder: (context, _) => Container(
+  builder: (context, *) => Container(
     color: notifier.state.backgroundColor,
     child: const Text('Count: ${notifier.state.count}'),
   ),
@@ -97,5 +98,180 @@ return ListenableBuilder(
 ```dart
 FloatingActionButton(
   onPressed: () => morphingWidgetManager.notifier.morph(),
+);
+```
+
+## State Persistence
+
+Minimal MVN provides built-in support for persisting and restoring state through hydration.
+
+### 1. Make your state serializable
+
+```dart
+@immutable
+class CounterState extends MMState {
+  const CounterState({
+    required this.count,
+    required this.lastUpdated,
+  });
+
+  factory CounterState.fromJson(Map<String, dynamic> json) => CounterState(
+    count: json['count'] as int,
+    lastUpdated: DateTime.parse(json['lastUpdated'] as String),
+  );
+
+  final int count;
+  final DateTime lastUpdated;
+
+  Map<String, dynamic> toJson() => {
+    'count': count,
+    'lastUpdated': lastUpdated.toIso8601String(),
+  };
+}
+```
+
+### 2. Add hydration to your notifier
+
+```dart
+class CounterNotifier extends MMNotifier<CounterState> {
+  CounterNotifier() : super(
+    const CounterState(
+      count: 0,
+      lastUpdated: DateTime.now(),
+    ),
+  ) {
+    // Load saved state when notifier is created
+    hydrate(_hydrator);
+  }
+
+  final _hydrator = MMHydrator<CounterState>(
+    key: 'counter_state',
+    toJson: (state) => state.toJson(),
+    fromJson: CounterState.fromJson,
+  );
+
+  Future<void> increment() async {
+    notify(CounterState(
+      count: state.count + 1,
+      lastUpdated: DateTime.now(),
+    ));
+    // Save state after change
+    await persist(_hydrator);
+  }
+
+  Future<void> reset() async {
+    await clearPersistedState(_hydrator);
+    notify(CounterState(
+      count: 0,
+      lastUpdated: DateTime.now(),
+    ));
+  }
+}
+```
+
+### 3. Access persisted state in your UI
+
+```dart
+class CounterScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final notifier = counterManager.notifier;
+    
+    return ListenableBuilder(
+      listenable: notifier,
+      builder: (context, _) => Column(
+        children: [
+          Text('Count: ${notifier.state.count}'),
+          Text('Last Updated: ${notifier.state.lastUpdated}'),
+          ElevatedButton(
+            onPressed: notifier.increment,
+            child: const Text('Increment'),
+          ),
+          TextButton(
+            onPressed: notifier.reset,
+            child: const Text('Reset'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+### Advanced Hydration Features
+
+#### State Versioning and Migration
+
+```dart
+final _hydrator = MMHydrator<CounterState>(
+  key: 'counter_state',
+  toJson: (state) => state.toJson(),
+  fromJson: CounterState.fromJson,
+  version: 2, // Current state version
+  migrations: [
+    MMHydrationMigration<CounterState>(
+      fromVersion: 1,
+      toVersion: 2,
+      migrate: (json) => CounterState.fromJson({
+        ...json,
+        'lastUpdated': DateTime.now().toIso8601String(),
+      }),
+    ),
+  ],
+);
+```
+
+#### Schema Validation
+
+```dart
+final _hydrator = MMHydrator<CounterState>(
+  key: 'counter_state',
+  toJson: (state) => state.toJson(),
+  fromJson: CounterState.fromJson,
+  schemaValidator: (json) => 
+    json.containsKey('count') && 
+    json.containsKey('lastUpdated'),
+);
+```
+
+#### Optimized Persistence
+
+```dart
+class CounterNotifier extends MMNotifier<CounterState> {
+  // ... other code ...
+
+  Future<void> bulkIncrement(int times) async {
+    for (var i = 0; i < times; i++) {
+      notify(CounterState(
+        count: state.count + 1,
+        lastUpdated: DateTime.now(),
+      ));
+    }
+    // Use debounce to avoid excessive storage operations
+    await persistWithDebounce(_hydrator);
+  }
+}
+```
+
+#### Event Handling
+
+```dart
+final _hydrator = MMHydrator<CounterState>(
+  key: 'counter_state',
+  toJson: (state) => state.toJson(),
+  fromJson: CounterState.fromJson,
+  onEvent: (event, error) {
+    switch (event) {
+      case HydrationEvent.started:
+        debugPrint('Starting hydration');
+        break;
+      case HydrationEvent.completed:
+        debugPrint('Hydration completed');
+        break;
+      case HydrationEvent.failed:
+        debugPrint('Hydration failed: $error');
+        break;
+    }
+  },
 );
 ```

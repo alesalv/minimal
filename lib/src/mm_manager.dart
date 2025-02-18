@@ -22,6 +22,7 @@ class MMManager<T extends MMNotifier> {
   MMManager(this._create, {this.autodispose = false});
 
   T? _instance;
+
   final T Function() _create;
 
   /// Whether the notifier should be disposed when it has no more subscribers
