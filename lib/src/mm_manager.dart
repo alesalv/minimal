@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'mm_notifier.dart';
 
 /// Minimal manager
@@ -23,6 +25,7 @@ class MMManager<T extends MMNotifier> {
 
   T? _instance;
   final T Function() _create;
+  T Function()? _override;
 
   /// Whether the notifier should be disposed when it has no more subscribers
   final bool autodispose;
@@ -39,8 +42,24 @@ class MMManager<T extends MMNotifier> {
   /// counter.increment();
   /// ```
   T get notifier {
-    _instance ??= _create()..onUnsubscribed = _onUnsubscribed;
+    final creator = _override ?? _create;
+    _instance ??= creator()..onUnsubscribed = _onUnsubscribed;
     return _instance!;
+  }
+
+  /// Overrides the notifier factory for testing purposes
+  ///
+  /// This method is only available in tests and should not be used in
+  /// production
+  ///
+  /// Example:
+  /// ```dart
+  /// chromaCounterManager.override(MockChromaCounterNotifier.new);
+  /// ```
+  @visibleForTesting
+  void override(final T Function() override) {
+    _override = override;
+    _instance = null;
   }
 
   void _onUnsubscribed() {

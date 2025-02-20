@@ -101,3 +101,28 @@ FloatingActionButton(
   onPressed: () => chromaCounterManager.notifier.nextMetamorph(),
 );
 ```
+
+## Testing
+
+### Widget Testing
+
+In tests, you can override the notifier with a mock notifier through the minimal manager:
+
+```dart
+testWidgets('should update UI when state changes', (tester) async {
+  // Use the minimal manager to override the notifier
+  counterManager.override(MockCounterNotifier.new);
+
+  await tester.pumpWidget(const MaterialApp(home: ChromaCounter()));
+
+  // Change state through the mock notifier
+  chromaCounterManager.notifier.nextMetamorph();
+  await tester.pump();
+
+  final newColor = _getContainerColor(tester);
+  // Test the exact color instead of a random one
+  expect(newColor, equals(Colors.red));
+});
+```
+
+See the [example app tests](/example/test) for more testing examples.
