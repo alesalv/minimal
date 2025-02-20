@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "AakashP.adb-qr",            // ADB QR
+    "Dart-Code.dart-code",       // Dart
+    "Dart-Code.flutter",         // Flutter
+    "waderyan.gitblame",         // Git blame
+    "redhat.vscode-yaml",        // Yaml
+    "SimonSiefke.svg-preview"    // SVG preview
+  ],
+  "unwantedRecommendations": [
+    "Nuxtr.nuxtr-vscode",        // Nuxtr
+    "ms-playwright.playwright",  // Playwright tests
+    "bradlc.vscode-tailwindcss", // Tailwind CSS
+    "vitest.explorer",           // Vitest
+    "Vue.volar"                  // Vue
+  ]
+}
+
