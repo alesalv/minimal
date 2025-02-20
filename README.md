@@ -28,7 +28,7 @@ You can now start using Minimal's MVN pattern in your application. The quickest 
 
 The package includes a complete [example app](/example) showing two use cases:
 - The classical counter app that demonstrates basic state management. This shows off either the non disposable and the disposable notifiers.
-- A morphing widget. This shows off two views using the same notifier, autodispose, and state selection to avoid unnecessary rebuilds.
+- A chroma counter widget, which changes the counter, the background color, and the container shape. This shows off two views using the same notifier, autodispose, and state selection to avoid unnecessary rebuilds.
 
 ## Features
 
@@ -44,8 +44,8 @@ The package includes a complete [example app](/example) showing two use cases:
 
 ```dart
 @MappableClass()
-class MorphingWidgetUIState extends MMState with MorphingWidgetUIStateMappable {
-  const MorphingWidgetUIState({
+class ChromaCounterUIState extends MMState with ChromaCounterUIStateMappable {
+  const ChromaCounterUIState({
     this.backgroundColor = Colors.blue,
     this.count = 0,
   });
@@ -57,10 +57,10 @@ class MorphingWidgetUIState extends MMState with MorphingWidgetUIStateMappable {
 ### 2. Create a notifier to hold your UI state
 
 ```dart
-class MorphingWidgetNotifier extends MMNotifier<MorphingWidgetUIState> {
-  MorphingWidgetNotifier() : super(const MorphingWidgetUIState());
+class ChromaCounterNotifier extends MMNotifier<ChromaCounterUIState> {
+  ChromaCounterNotifier() : super(const ChromaCounterUIState());
 
-  void morph() => notify(
+  void nextMetamorph() => notify(
         state.copyWith(
           backgroundColor: _randomColor(),
           count: state.count + 1,
@@ -72,7 +72,7 @@ class MorphingWidgetNotifier extends MMNotifier<MorphingWidgetUIState> {
 ### 3. Rebuild the UI when state changes
 
 ```dart
-final notifier = morphingWidgetManager.notifier;
+final notifier = chromaCounterManager.notifier;
 return ListenableBuilder(
   listenable: notifier,
   builder: (context, _) => Container(
@@ -85,7 +85,7 @@ return ListenableBuilder(
 #### 3.2 (Optimized) Rebuild the UI only when part of the state changes
 
 ```dart
-final notifier = morphingWidgetManager.notifier;
+final notifier = chromaCounterManager.notifier;
 return ListenableBuilder(
   listenable: notifier.select((state) => state.backgroundColor),
   builder: (context, _) => Container(
@@ -98,6 +98,6 @@ return ListenableBuilder(
 
 ```dart
 FloatingActionButton(
-  onPressed: () => morphingWidgetManager.notifier.morph(),
+  onPressed: () => chromaCounterManager.notifier.nextMetamorph(),
 );
 ```

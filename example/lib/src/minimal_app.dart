@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'chroma_counter/views/pages/chroma_counter_page.dart';
 import 'counter/views/pages/counter_page.dart';
-import 'morphing_widget/views/pages/morphing_widget_page.dart';
 
 class MinimalApp extends StatelessWidget {
   const MinimalApp({super.key});
@@ -66,12 +66,12 @@ class HomePage extends StatelessWidget {
                 unawaited(
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (final context) => const MorphingWidgetPage(),
+                      builder: (final context) => const ChromaCounterPage(),
                     ),
                   ),
                 );
               },
-              child: const Text('Morphing Widget'),
+              child: const Text('Chroma Counter'),
             ),
           ],
         ),

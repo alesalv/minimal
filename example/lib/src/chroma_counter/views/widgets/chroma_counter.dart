@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../notifiers/morphing_widget_notifier.dart';
+import '../../notifiers/chroma_counter_notifier.dart';
 
-class MorphingWidget extends StatelessWidget {
-  const MorphingWidget({super.key});
+class ChromaCounter extends StatelessWidget {
+  const ChromaCounter({super.key});
 
   @override
   Widget build(final BuildContext context) {
-    final notifier = morphingWidgetManager.notifier;
+    final notifier = chromaCounterManager.notifier;
 
     return ListenableBuilder(
       listenable: notifier,

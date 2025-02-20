@@ -3,17 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../notifiers/morphing_widget_notifier.dart';
-import '../widgets/morphing_widget.dart';
+import '../../notifiers/chroma_counter_notifier.dart';
+import '../widgets/chroma_counter.dart';
 
-class MorphingWidgetPage extends StatelessWidget {
-  const MorphingWidgetPage({super.key});
+class ChromaCounterPage extends StatelessWidget {
+  const ChromaCounterPage({super.key});
 
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Morphing Widget'),
+        title: const Text('Chroma Counter'),
       ),
       body: Center(
         child: Column(
@@ -21,7 +21,7 @@ class MorphingWidgetPage extends StatelessWidget {
           spacing: 32,
           children: [
             const _SelectedCount(),
-            const MorphingWidget(),
+            const ChromaCounter(),
             ElevatedButton(
               onPressed: () {
                 unawaited(
@@ -53,7 +53,7 @@ class _SelectedCount extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final notifier = morphingWidgetManager.notifier;
+    final notifier = chromaCounterManager.notifier;
 
     return ListenableBuilder(
       listenable: notifier.select((final state) => state.milestone),
@@ -80,7 +80,7 @@ class _BottomSheetContent extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Center(
-            child: MorphingWidget(),
+            child: ChromaCounter(),
           ),
           Positioned(
             right: 16,
@@ -99,7 +99,7 @@ class _Button extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return FloatingActionButton(
-      onPressed: () => morphingWidgetManager.notifier.morph(),
+      onPressed: () => chromaCounterManager.notifier.nextMetamorph(),
       child: const Icon(Icons.refresh),
     );
   }

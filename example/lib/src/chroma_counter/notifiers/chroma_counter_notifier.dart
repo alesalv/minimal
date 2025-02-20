@@ -1,10 +1,10 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:minimal_mvn/minimal_mvn.dart';
-import '../views/ui_states/morphing_widget_ui_state.dart';
+import '../views/ui_states/chroma_counter_ui_state.dart';
 
-class MorphingWidgetNotifier extends MMNotifier<MorphingWidgetUIState> {
-  MorphingWidgetNotifier() : super(const MorphingWidgetUIState());
+class ChromaCounterNotifier extends MMNotifier<ChromaCounterUIState> {
+  ChromaCounterNotifier() : super(const ChromaCounterUIState());
 
   final _random = math.Random();
 
@@ -15,7 +15,7 @@ class MorphingWidgetNotifier extends MMNotifier<MorphingWidgetUIState> {
         bottomRight: Radius.circular(_random.nextDouble() * 100),
       );
 
-  void morph() => notify(
+  void nextMetamorph() => notify(
         state.copyWith(
           count: state.count + 1,
           backgroundColor: Color.fromRGBO(
@@ -29,5 +29,5 @@ class MorphingWidgetNotifier extends MMNotifier<MorphingWidgetUIState> {
       );
 }
 
-final MMManager<MorphingWidgetNotifier> morphingWidgetManager =
-    MMManager(MorphingWidgetNotifier.new, autodispose: true);
+final MMManager<ChromaCounterNotifier> chromaCounterManager =
+    MMManager(ChromaCounterNotifier.new, autodispose: true);

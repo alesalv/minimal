@@ -2,11 +2,11 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:minimal_mvn/minimal_mvn.dart';
 
-part 'morphing_widget_ui_state.mapper.dart';
+part 'chroma_counter_ui_state.mapper.dart';
 
 @MappableClass()
-class MorphingWidgetUIState extends MMState with MorphingWidgetUIStateMappable {
-  const MorphingWidgetUIState({
+class ChromaCounterUIState extends MMState with ChromaCounterUIStateMappable {
+  const ChromaCounterUIState({
     this.backgroundColor = Colors.blue,
     this.borderRadius = BorderRadius.zero,
     this.count = 0,
