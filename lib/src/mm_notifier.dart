@@ -45,8 +45,8 @@ abstract class MMNotifier<T extends MMState> extends ChangeNotifier {
   ///
   /// Example:
   /// ```dart
-  /// final notifier = morphingWidgetManager.notifier;
-  /// print(notifier.state.backgroundColor); // Reads current color
+  /// final notifier = counterManager.notifier;
+  /// print(notifier.state.count);
   /// ```
   T get state => _state;
 
