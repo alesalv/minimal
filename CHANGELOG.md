@@ -1,3 +1,9 @@
+## 1.0.3
+
+* Add pub and license badges to README.md
+* Rename morphing example to chroma counter
+* Add test for chroma counter widget
+
 ## 1.0.2
 
 * Expose a check for notifier been disposed
