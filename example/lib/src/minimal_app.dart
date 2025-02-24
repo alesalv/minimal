@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'chroma_counter/views/pages/chroma_counter_page.dart';
 import 'counter/views/pages/counter_page.dart';
+import 'version/views/widgets/version_panel.dart';
 
 class MinimalApp extends StatelessWidget {
   const MinimalApp({super.key});
@@ -44,37 +45,46 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 16,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                unawaited(
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (final context) => const CounterPage(),
-                    ),
-                  ),
-                );
-              },
-              child: const Text('Counter'),
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 16,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    unawaited(
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (final context) => const CounterPage(),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('Counter'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    unawaited(
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (final context) => const ChromaCounterPage(),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('Chroma Counter'),
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                unawaited(
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (final context) => const ChromaCounterPage(),
-                    ),
-                  ),
-                );
-              },
-              child: const Text('Chroma Counter'),
-            ),
-          ],
-        ),
+          ),
+          const Positioned(
+            right: 16,
+            bottom: 16,
+            child: VersionPanel(),
+          ),
+        ],
       ),
     );
   }

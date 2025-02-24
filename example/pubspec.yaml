@@ -25,6 +25,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/minimal.svg
+    # Needed to read package version at runtime
+    - ../pubspec.yaml
 
   # Enable generation of localized Strings from arb files.
   generate: true
