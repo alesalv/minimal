@@ -111,7 +111,7 @@ In tests, you can override the notifier with a mock notifier through the minimal
 ```dart
 testWidgets('should update UI when state changes', (tester) async {
   // Use the minimal manager to override the notifier
-  counterManager.override(MockCounterNotifier.new);
+  chromaCounterManager.override(MockCounterNotifier.new);
 
   await tester.pumpWidget(const MaterialApp(home: ChromaCounter()));
 
