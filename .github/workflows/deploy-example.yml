@@ -31,7 +31,7 @@ jobs:
         working-directory: example
 
       - name: Build Web
-        run: fvm flutter build web
+        run: fvm flutter build web --base-href "/minimal/"
         working-directory: example
 
       - name: Deploy to GitHub Pages
