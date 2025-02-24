@@ -10,6 +10,20 @@ A minimal state management package for Flutter. Part of a minimalistic architect
 
 This package aims for the simplest possible architecture, making it easier to understand and use, while offering an alternative to the growing complexity found in many other state management solutions, in an attempt to minimize side effects.
 
+## Try it
+
+Check out the live example at [https://alesalv.github.io/minimal/](https://alesalv.github.io/minimal/)
+
+**Counter**
+
+The classical Flutter counter app demonstrates basic state management. The counter on the top is a non disposable notifier, so it keeps memory when re-entering the page. The one on the bottom is a disposable notifier, so it resets when re-entering the page.
+
+**Chroma Counter**
+
+A more advanced counter widget, which increases the counter, and randomly changes color and shape. The reveal button shows a second widget using the same notifier. Thanks to the autodispose feature, the notifier is disposed only when both the widgets are not visible anymore. The string on top of the choma counter updates every 10 counts, thanks to the select feature, which is used to avoid unnecessary rebuilds.
+
+The complete source code is in the [example folder](/example).
+
 ## Getting Started
 
 Add Minimal to your pubspec.yaml:
@@ -25,10 +39,6 @@ import 'package:minimal_mvn/minimal_mvn.dart';
 ```
 
 You can now start using Minimal's MVN pattern in your application. The quickest way is to follow the [4 steps below](#state-management-in-4-steps).
-
-The package includes a complete [example app](/example) showing two use cases:
-- The classical counter app that demonstrates basic state management. This shows off either the non disposable and the disposable notifiers.
-- A chroma counter widget, which changes the counter, the background color, and the container shape. This shows off two views using the same notifier, autodispose, and state selection to avoid unnecessary rebuilds.
 
 ## Features
 
