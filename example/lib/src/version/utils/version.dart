@@ -5,7 +5,7 @@ import 'package:flutter/services.dart' show rootBundle;
 /// Example:
 /// ```dart
 /// final version = await getPackageVersion();
-/// print('Current version: $version'); // prints "1.0.3"
+/// print('Current version: $version'); // prints "1.0.4"
 /// ```
 Future<String> getPackageVersion() async {
   final content = await rootBundle.loadString('../pubspec.yaml');

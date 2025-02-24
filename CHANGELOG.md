@@ -1,3 +1,9 @@
+## 1.0.4
+
+* Deploy web example to GitHub Pages upon publishing
+* Update README.md about web example
+* Add package version on example main page
+
 ## 1.0.3
 
 * Add pub and license badges to README.md
