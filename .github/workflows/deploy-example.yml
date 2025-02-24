@@ -30,6 +30,7 @@ jobs:
         run: fvm flutter pub get
         working-directory: example
 
+      # web available at https://alesalv.github.io/minimal/
       - name: Build Web
         run: fvm flutter build web --base-href "/minimal/"
         working-directory: example
