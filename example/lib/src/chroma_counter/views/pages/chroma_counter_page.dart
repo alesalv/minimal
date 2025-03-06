@@ -55,12 +55,12 @@ class _SelectedCount extends StatelessWidget {
   Widget build(final BuildContext context) {
     final notifier = chromaCounterManager.notifier;
 
-    return ListenableBuilder(
-      listenable: notifier.select((final state) => state.milestone),
-      builder: (final context, final _) {
+    return ValueListenableBuilder<int>(
+      valueListenable: notifier.select((final state) => state.milestone),
+      builder: (final context, final milestone, final _) {
         final now = _formatter.format(DateTime.now());
         return Text(
-          'Selected: ${notifier.state.milestone} at $now',
+          'Selected: $milestone at $now',
           style: Theme.of(context).textTheme.titleMedium,
         );
       },

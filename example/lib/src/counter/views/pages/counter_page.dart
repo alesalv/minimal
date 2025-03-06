@@ -39,14 +39,14 @@ class _CounterPanel extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final notifier = counterManager.notifier;
-    return ListenableBuilder(
-      listenable: notifier,
-      builder: (final _, final __) {
+    return ValueListenableBuilder(
+      valueListenable: notifier,
+      builder: (final _, final state, final __) {
         return Column(
           children: [
             const Text('You have pushed the button this many times:'),
             Text(
-              notifier.state.count.toString(),
+              state.count.toString(),
               style: const TextStyle(fontSize: 48),
             ),
           ],
@@ -62,14 +62,14 @@ class _DisposableCounterPanel extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final notifier = disposableCounterManager.notifier;
-    return ListenableBuilder(
-      listenable: notifier,
-      builder: (final _, final __) {
+    return ValueListenableBuilder(
+      valueListenable: notifier,
+      builder: (final _, final state, final __) {
         return Column(
           children: [
             const Text('You have pushed the button this many times:'),
             Text(
-              notifier.state.count.toString(),
+              state.count.toString(),
               style: const TextStyle(fontSize: 48),
             ),
           ],

@@ -24,10 +24,10 @@ class _VersionPanelState extends State<VersionPanel> {
   @override
   Widget build(final BuildContext context) {
     final notifier = versionNotifierManager.notifier;
-    return ListenableBuilder(
-      listenable: notifier,
-      builder: (final _, final __) => Text(
-        notifier.state.version,
+    return ValueListenableBuilder(
+      valueListenable: notifier,
+      builder: (final _, final state, final __) => Text(
+        state.version,
         style: const TextStyle(
           fontSize: 12,
           color: Color(0x99666666), // Semi-transparent grey

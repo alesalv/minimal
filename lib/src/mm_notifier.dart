@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+
 import 'mm_state.dart';
 
 /// Callback invoked when a notifier has no more subscribers
@@ -17,13 +18,16 @@ typedef OnUnsubscribedCallback = void Function();
 ///   void increment() => notify(state.copyWith(count: state.count + 1));
 /// }
 /// ```
-abstract class MMNotifier<T extends MMState> extends ChangeNotifier {
+abstract class MMNotifier<T extends MMState> extends ChangeNotifier
+    implements ValueListenable<T> {
   /// Creates a minimal notifier with the given initial state
   MMNotifier(this._state);
 
-  int _listenersCount = 0;
   bool _disposed = false;
   T _state;
+
+  @override
+  T get value => _state;
 
   /// Whether this notifier has been disposed. Subclasses can check this before
   /// performing asynchronous operations that might occur after disposal
@@ -61,10 +65,10 @@ abstract class MMNotifier<T extends MMState> extends ChangeNotifier {
   /// ```dart
   /// // Only rebuilds when backgroundColor changes
   /// final colorNotifier = notifier.select((state) => state.backgroundColor);
-  /// return ListenableBuilder(
-  ///   listenable: colorNotifier,
-  ///   builder: (context, _) => Container(
-  ///     color: colorNotifier.value,
+  /// return ValueListenableBuilder(
+  ///   valueListenable: colorNotifier,
+  ///   builder: (context, final color, _) => Container(
+  ///     color: color,
   ///     child: Text('Color changed!'),
   ///   ),
   /// );
@@ -100,17 +104,9 @@ abstract class MMNotifier<T extends MMState> extends ChangeNotifier {
   OnUnsubscribedCallback? onUnsubscribed;
 
   @override
-  void addListener(final VoidCallback listener) {
-    super.addListener(listener);
-    _listenersCount++;
-  }
-
-  @override
   void removeListener(final VoidCallback listener) {
     super.removeListener(listener);
-    _listenersCount--;
-    if (_listenersCount <= 0) {
-      _listenersCount = 0;
+    if (!hasListeners) {
       onUnsubscribed?.call();
     }
   }

@@ -83,11 +83,11 @@ class ChromaCounterNotifier extends MMNotifier<ChromaCounterUIState> {
 
 ```dart
 final notifier = chromaCounterManager.notifier;
-return ListenableBuilder(
-  listenable: notifier,
-  builder: (context, _) => Container(
-    color: notifier.state.backgroundColor,
-    child: const Text('Count: ${notifier.state.count}'),
+return ValueListenableBuilder(
+  valueListenable: notifier,
+  builder: (context, state, _) => Container(
+    color: state.backgroundColor,
+    child: const Text('Count: ${state.count}'),
   ),
 );
 ```
@@ -96,10 +96,10 @@ return ListenableBuilder(
 
 ```dart
 final notifier = chromaCounterManager.notifier;
-return ListenableBuilder(
-  listenable: notifier.select((state) => state.backgroundColor),
-  builder: (context, _) => Container(
-    color: notifier.state.backgroundColor,
+return ValueListenableBuilder(
+  valueListenable: notifier.select((state) => state.backgroundColor),
+  builder: (context, backgroundColor, _) => Container(
+    color: backgroundColor,
   ),
 );
 ```
