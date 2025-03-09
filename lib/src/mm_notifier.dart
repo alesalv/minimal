@@ -84,15 +84,19 @@ abstract class MMNotifier<T extends MMState> extends ChangeNotifier {
   /// Mutates the notifier's state and notifies its listeners
   ///
   /// This is the preferred way to update state as it ensures all listeners
-  /// are notified
+  /// are notified. In case the new state is the same as the current state,
+  /// the notification is skipped to avoid unnecessary rebuilds
   ///
   /// Example:
   /// ```dart
   /// void increment() => notify(state.copyWith(value: state.value + 1));
   /// ```
+  @protected
   void notify(final T value) {
-    _state = value;
-    notifyListeners();
+    if (_state != value) {
+      _state = value;
+      notifyListeners();
+    }
   }
 
   /// Callback that will be invoked when this notifier has no more
