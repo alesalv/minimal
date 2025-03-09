@@ -53,7 +53,7 @@ abstract class MMNotifier<T> extends ChangeNotifier {
   /// when it changes
   ///
   /// This is useful for optimizing rebuilds in the UI. The returned
-  /// [ValueNotifier] will only notify its listeners when the selected value
+  /// [ValueListenable] will only notify its listeners when the selected value
   /// actually changes
   ///
   /// Example:
@@ -68,7 +68,7 @@ abstract class MMNotifier<T> extends ChangeNotifier {
   ///   ),
   /// );
   /// ```
-  ValueNotifier<S> select<S>(final S Function(T state) selector) {
+  ValueListenable<S> select<S>(final S Function(T state) selector) {
     final notifier = _MMSelector(() => selector(_state));
     // the moment selector is subscribed, start listening to the notifier
     // for its changes
