@@ -77,6 +77,9 @@ class ChromaCounterNotifier extends MMNotifier<ChromaCounterUIState> {
         ),
       );
 }
+
+final MMManager<ChromaCounterNotifier> chromaCounterManager =
+    MMManager(ChromaCounterNotifier.new, autodispose: true);
 ```
 
 ### 3. Rebuild the UI when state changes
