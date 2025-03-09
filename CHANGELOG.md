@@ -1,4 +1,12 @@
-## 1.0.5
+## 2.0.0
+
+* Document minimal manager
+* Remove minimal state (breaking change), easing notifiers with primitives
+* Improve MMMNotifier notify()
+* Improve internal value notifier for selection
+* Make selection read-only (breaking change)
+
+## 1.0.5 (retracted)
 
 * Document minimal manager
 * Remove minimal state (breaking change), easing notifiers with primitives
