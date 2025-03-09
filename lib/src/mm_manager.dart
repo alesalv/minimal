@@ -16,7 +16,7 @@ import 'mm_notifier.dart';
 ///   autodispose: true,
 /// );
 /// ```
-class MMManager<T extends MMNotifier> {
+class MMManager<T extends MMNotifier<dynamic>> {
   /// Creates a minimal manager for the given minimal notifier type
   ///
   /// The optional [autodispose] parameter dictates whether the notifier

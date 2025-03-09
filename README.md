@@ -54,7 +54,7 @@ You can now start using Minimal's MVN pattern in your application. The quickest 
 
 ```dart
 @MappableClass()
-class ChromaCounterUIState extends MMState with ChromaCounterUIStateMappable {
+class ChromaCounterUIState with ChromaCounterUIStateMappable {
   const ChromaCounterUIState({
     this.backgroundColor = Colors.blue,
     this.count = 0,

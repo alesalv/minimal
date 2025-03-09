@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'mm_state.dart';
 
 /// Callback invoked when a notifier has no more subscribers
 typedef OnUnsubscribedCallback = void Function();
@@ -17,7 +16,7 @@ typedef OnUnsubscribedCallback = void Function();
 ///   void increment() => notify(state.copyWith(count: state.count + 1));
 /// }
 /// ```
-abstract class MMNotifier<T extends MMState> extends ChangeNotifier {
+abstract class MMNotifier<T> extends ChangeNotifier {
   /// Creates a minimal notifier with the given initial state
   MMNotifier(this._state);
 
