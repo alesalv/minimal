@@ -135,10 +135,7 @@ class _MMSelector<T> extends ValueNotifier<T> {
   VoidCallback? onRemoveListener;
 
   void notify() {
-    final current = _getValue();
-    if (current != value) {
-      value = current;
-    }
+    value = _getValue();
   }
 
   @override
