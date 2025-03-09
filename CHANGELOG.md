@@ -1,3 +1,11 @@
+## 1.0.5
+
+* Document minimal manager
+* Remove minimal state (breaking change), easing notifiers with primitives
+* Improve MMMNotifier notify()
+* Improve internal value notifier for selection
+* Make selection read-only
+
 ## 1.0.4
 
 * Deploy web example to GitHub Pages upon publishing

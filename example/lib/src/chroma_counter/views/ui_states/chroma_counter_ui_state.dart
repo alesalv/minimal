@@ -1,11 +1,10 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
-import 'package:minimal_mvn/minimal_mvn.dart';
 
 part 'chroma_counter_ui_state.mapper.dart';
 
 @MappableClass()
-class ChromaCounterUIState extends MMState with ChromaCounterUIStateMappable {
+class ChromaCounterUIState with ChromaCounterUIStateMappable {
   const ChromaCounterUIState({
     this.backgroundColor = Colors.blue,
     this.borderRadius = BorderRadius.zero,

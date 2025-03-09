@@ -1,11 +1,9 @@
 import 'package:minimal_mvn/minimal_mvn.dart';
 
-import '../views/ui_states/counter_ui_state.dart';
+class CounterNotifier extends MMNotifier<int> {
+  CounterNotifier() : super(0);
 
-class CounterNotifier extends MMNotifier<CounterUIState> {
-  CounterNotifier() : super(const CounterUIState(count: 0));
-
-  void increment() => notify(state.copyWith(count: state.count + 1));
+  void increment() => notify(state + 1);
 }
 
 final MMManager<CounterNotifier> counterManager =

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:minimal_mvn/minimal_mvn.dart';
 
 @immutable
-class TState extends MMState {
+class TState {
   const TState({
     required this.value,
     required this.text,

@@ -26,8 +26,8 @@ class _VersionPanelState extends State<VersionPanel> {
     final notifier = versionNotifierManager.notifier;
     return ValueListenableBuilder(
       valueListenable: notifier,
-      builder: (final _, final state, final __) => Text(
-        state.version,
+      builder: (final _, final version, final __) => Text(
+        version,
         style: const TextStyle(
           fontSize: 12,
           color: Color(0x99666666), // Semi-transparent grey

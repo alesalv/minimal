@@ -54,7 +54,7 @@ You can now start using Minimal's MVN pattern in your application. The quickest 
 
 ```dart
 @MappableClass()
-class ChromaCounterUIState extends MMState with ChromaCounterUIStateMappable {
+class ChromaCounterUIState with ChromaCounterUIStateMappable {
   const ChromaCounterUIState({
     this.backgroundColor = Colors.blue,
     this.count = 0,
@@ -64,7 +64,7 @@ class ChromaCounterUIState extends MMState with ChromaCounterUIStateMappable {
 }
 ```
 
-### 2. Create a notifier to hold your UI state
+### 2. Create a notifier to hold your state
 
 ```dart
 class ChromaCounterNotifier extends MMNotifier<ChromaCounterUIState> {
@@ -79,7 +79,24 @@ class ChromaCounterNotifier extends MMNotifier<ChromaCounterUIState> {
 }
 ```
 
-### 3. Rebuild the UI when state changes
+### 3. Create a manager to access your notifier
+
+```
+final MMManager<ChromaCounterNotifier> chromaCounterManager =
+    MMManager(ChromaCounterNotifier.new, autodispose: true);
+```
+
+### 4 Use the notifier from UI
+
+###### Access the notifier upon user's actions
+
+```dart
+FloatingActionButton(
+  onPressed: () => chromaCounterManager.notifier.nextMetamorph(),
+);
+```
+
+###### Rebuild the UI when state changes
 
 ```dart
 final notifier = chromaCounterManager.notifier;
@@ -92,7 +109,7 @@ return ValueListenableBuilder(
 );
 ```
 
-#### 3.2 (Optimized) Rebuild the UI only when part of the state changes
+###### (Optimized) Rebuild the UI only when part of the state changes
 
 ```dart
 final notifier = chromaCounterManager.notifier;
@@ -101,14 +118,6 @@ return ValueListenableBuilder(
   builder: (context, backgroundColor, _) => Container(
     color: backgroundColor,
   ),
-);
-```
-
-### 4. Access the notifier upon user's actions
-
-```dart
-FloatingActionButton(
-  onPressed: () => chromaCounterManager.notifier.nextMetamorph(),
 );
 ```
 

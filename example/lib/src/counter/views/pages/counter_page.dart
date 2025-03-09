@@ -46,7 +46,7 @@ class _CounterPanel extends StatelessWidget {
           children: [
             const Text('You have pushed the button this many times:'),
             Text(
-              state.count.toString(),
+              state.toString(),
               style: const TextStyle(fontSize: 48),
             ),
           ],
@@ -69,7 +69,7 @@ class _DisposableCounterPanel extends StatelessWidget {
           children: [
             const Text('You have pushed the button this many times:'),
             Text(
-              state.count.toString(),
+              state.toString(),
               style: const TextStyle(fontSize: 48),
             ),
           ],
