@@ -64,7 +64,7 @@ class ChromaCounterUIState with ChromaCounterUIStateMappable {
 }
 ```
 
-### 2. Create a notifier to hold your UI state
+### 2. Create a notifier to hold your state
 
 ```dart
 class ChromaCounterNotifier extends MMNotifier<ChromaCounterUIState> {
@@ -77,12 +77,26 @@ class ChromaCounterNotifier extends MMNotifier<ChromaCounterUIState> {
         ),
       );
 }
+```
 
+### 3. Create a manager to access your notifier
+
+```
 final MMManager<ChromaCounterNotifier> chromaCounterManager =
     MMManager(ChromaCounterNotifier.new, autodispose: true);
 ```
 
-### 3. Rebuild the UI when state changes
+### 4 Use the notifier from UI
+
+###### Access the notifier upon user's actions
+
+```dart
+FloatingActionButton(
+  onPressed: () => chromaCounterManager.notifier.nextMetamorph(),
+);
+```
+
+###### Rebuild the UI when state changes
 
 ```dart
 final notifier = chromaCounterManager.notifier;
@@ -95,7 +109,7 @@ return ListenableBuilder(
 );
 ```
 
-#### 3.2 (Optimized) Rebuild the UI only when part of the state changes
+###### (Optimized) Rebuild the UI only when part of the state changes
 
 ```dart
 final notifier = chromaCounterManager.notifier;
@@ -104,14 +118,6 @@ return ListenableBuilder(
   builder: (context, _) => Container(
     color: notifier.state.backgroundColor,
   ),
-);
-```
-
-### 4. Access the notifier upon user's actions
-
-```dart
-FloatingActionButton(
-  onPressed: () => chromaCounterManager.notifier.nextMetamorph(),
 );
 ```
 
