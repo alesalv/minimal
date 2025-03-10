@@ -9,21 +9,21 @@ class ChromaCounter extends StatelessWidget {
   Widget build(final BuildContext context) {
     final notifier = chromaCounterManager.notifier;
 
-    return ListenableBuilder(
-      listenable: notifier,
-      builder: (final _, final __) {
+    return ValueListenableBuilder(
+      valueListenable: notifier,
+      builder: (final _, final state, final __) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
           width: 200,
           height: 200,
           decoration: BoxDecoration(
-            color: notifier.state.backgroundColor,
-            borderRadius: notifier.state.borderRadius,
+            color: state.backgroundColor,
+            borderRadius: state.borderRadius,
           ),
           child: Center(
             child: Text(
-              '${notifier.state.count}',
+              '${state.count}',
               style: const TextStyle(
                 fontSize: 48,
                 color: Colors.white,
