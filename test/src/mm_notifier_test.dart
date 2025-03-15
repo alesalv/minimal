@@ -2,6 +2,7 @@
 // ignore_for_file: cascade_invocations
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:minimal_mvn/minimal_mvn.dart';
 
 import 'utils/test_common.dart';
 
@@ -137,6 +138,60 @@ void main() {
       expect(notifier.isDisposed, false);
 
       notifier.dispose();
+      expect(notifier.isDisposed, true);
+    });
+
+    test('is disposed when all listeners are removed', () {
+      final manager = MMManager(
+        TNotifier.new,
+        autodispose: true,
+      );
+
+      var notified = 0;
+      void l1() => notified++;
+      void l2() => notified++;
+
+      final notifier = manager.notifier;
+      notifier.addListener(l1);
+      notifier.addListener(l2);
+
+      notifier.increment();
+      notifier.increment();
+      expect(notifier.isDisposed, false);
+
+      notifier.removeListener(l1);
+      expect(notifier.isDisposed, false);
+
+      notifier.removeListener(l2);
+      expect(notifier.isDisposed, true);
+    });
+
+    test('is disposed when all listeners are removed with selections', () {
+      final manager = MMManager(
+        TNotifier.new,
+        autodispose: true,
+      );
+
+      var stateNotified = 0;
+      void stateL() => stateNotified++;
+
+      var selectionNotified = 0;
+      void selectionL() => selectionNotified++;
+
+      final notifier = manager.notifier;
+      notifier.addListener(stateL);
+
+      final selected = notifier.select((final state) => state.text);
+      selected.addListener(selectionL);
+
+      notifier.increment();
+      notifier.append('mutated');
+      expect(notifier.isDisposed, false);
+
+      notifier.removeListener(stateL);
+      expect(notifier.isDisposed, false);
+
+      notifier.removeListener(selectionL);
       expect(notifier.isDisposed, true);
     });
   });
