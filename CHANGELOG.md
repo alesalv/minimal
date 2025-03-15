@@ -1,3 +1,12 @@
+## 2.0.1
+
+* Update to Flutter 3.29.2
+* Update format to Dart 3.7.0 and onwards
+* Update all lint rules
+* Update example dependencies
+* More tests for select
+* TODOs page for the example app
+
 ## 2.0.0
 
 * Document minimal manager

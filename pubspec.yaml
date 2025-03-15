@@ -1,6 +1,6 @@
 name: minimal_mvn
 description: A minimal state management solution for Flutter apps using the Model-View-Notifier (MVN) pattern
-version: 2.0.0
+version: 2.0.1
 repository: https://github.com/alesalv/minimal
 homepage: https://github.com/alesalv/minimal
 
