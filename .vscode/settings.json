@@ -1,5 +1,5 @@
 {
-  "dart.flutterSdkPath": ".fvm/versions/3.27.4",
+  "dart.flutterSdkPath": ".fvm/versions/3.29.2",
   "search.exclude": {
     "**/.fvm": true,
     "**/*.freezed.dart": true,
