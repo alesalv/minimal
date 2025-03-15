@@ -76,5 +76,7 @@ linter:
     public_member_api_docs: false
     # incompatible with omit_local_variable_types
     specify_nonobvious_local_variable_types: false
+    # incompatible with omit_obvious_property_types
+    specify_nonobvious_property_types: false
     # incompatible with prefer_final_locals
     unnecessary_final: false
