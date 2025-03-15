@@ -4,6 +4,10 @@
 # https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
 include: all_lint_rules.yaml
 
+########## formatter ##########
+formatter:
+  page_width: 100
+
 ########## analyzer ##########
 analyzer:
   exclude:

@@ -16,8 +16,7 @@ class _VersionPanelState extends State<VersionPanel> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
-      (final timeStamp) =>
-          unawaited(versionNotifierManager.notifier.loadVersion()),
+      (final timeStamp) => unawaited(versionNotifierManager.notifier.loadVersion()),
     );
   }
 
