@@ -44,96 +44,100 @@ void main() {
       expect(notified, 1);
       expect(notifier.state.value, 2);
     });
+  });
 
-    test('selects part of state', () {
-      var stateNotified = 0;
-      void stateL() => stateNotified++;
-
-      var selectionNotified = 0;
-      void selectionL() => selectionNotified++;
-
-      final notifier = TNotifier();
-      notifier.addListener(stateL);
-
-      final selected = notifier.select((final state) => state.text);
-      selected.addListener(selectionL);
-
-      notifier.increment();
-      expect(selected.value, '');
-      expect(notifier.state.value, 1);
-      expect(notifier.state.text, '');
-      expect(stateNotified, 1);
-      expect(selectionNotified, 0);
-
-      notifier.increment();
-      expect(selected.value, '');
-      expect(notifier.state.value, 2);
-      expect(notifier.state.text, '');
-      expect(stateNotified, 2);
-      expect(selectionNotified, 0);
-
-      notifier.append('mutated');
-      expect(selected.value, 'mutated');
-      expect(notifier.state.value, 2);
-      expect(notifier.state.text, 'mutated');
-      expect(stateNotified, 3);
-      expect(selectionNotified, 1);
-    });
-
-    test('stops notifying removed listeners for selection', () {
-      var stateNotified = 0;
-      void stateL() => stateNotified++;
-
-      var selectionNotified = 0;
-      void selectionL() => selectionNotified++;
-
-      final notifier = TNotifier();
-      notifier.addListener(stateL);
-
-      final selected = notifier.select((final state) => state.text);
-      selected.addListener(selectionL);
-
-      notifier.append('one');
-      expect(selected.value, 'one');
-      expect(notifier.state.value, 0);
-      expect(notifier.state.text, 'one');
-      expect(stateNotified, 1);
-      expect(selectionNotified, 1);
-
-      notifier.append('Two');
-      expect(selected.value, 'oneTwo');
-      expect(notifier.state.value, 0);
-      expect(notifier.state.text, 'oneTwo');
-      expect(stateNotified, 2);
-      expect(selectionNotified, 2);
-
-      selected.removeListener(selectionL);
-
-      notifier.append('Three');
-      expect(selected.value, 'oneTwo');
-      expect(notifier.state.value, 0);
-      expect(notifier.state.text, 'oneTwoThree');
-      expect(stateNotified, 3);
-      expect(selectionNotified, 2);
-    });
-
-    test('selection cannot be mutated', () {
-      var selectionNotified = 0;
-      void selectionL() => selectionNotified++;
+  group('MMNotifier select', () {
+    test('cannot be mutated', () {
+      var selectNotified = 0;
+      void selectionL() => selectNotified++;
 
       final notifier = TNotifier();
 
       final selected = notifier.select((final state) => state.text);
       selected.addListener(selectionL);
 
-      // ValueListenable is read-only, so we can't mutate it
+      // ValueListenable is read-only, so it can't be mutated
       // ignore: unnecessary_type_check
       expect(selected is ValueListenable, true);
       notifier.append('parent update');
       expect(selected.value, 'parent update');
     });
 
-    test('tracks disposed state', () {
+    test('notifies listeners only when selection changes', () {
+      var stateNotified = 0;
+      void stateL() => stateNotified++;
+
+      var selectNotified = 0;
+      void selectionL() => selectNotified++;
+
+      final notifier = TNotifier();
+      notifier.addListener(stateL);
+
+      // selected tracks changes in the text part of the state
+      final selected = notifier.select((final state) => state.text);
+      selected.addListener(selectionL);
+
+      notifier.increment();
+      expect(stateNotified, 1);
+      // selected not notified
+      expect(selected.value, '');
+      expect(selectNotified, 0);
+
+      notifier.increment();
+      expect(stateNotified, 2);
+      // selected not notified
+      expect(selected.value, '');
+      expect(selectNotified, 0);
+
+      notifier.append('mutated');
+      expect(stateNotified, 3);
+      expect(notifier.state.value, 2);
+      expect(notifier.state.text, 'mutated');
+      // selected notified
+      expect(selectNotified, 1);
+      expect(selected.value, 'mutated');
+    });
+
+    test('stops notifying removed listeners', () {
+      var stateNotified = 0;
+      void stateL() => stateNotified++;
+
+      var selectNotified = 0;
+      void selectionL() => selectNotified++;
+
+      final notifier = TNotifier();
+      notifier.addListener(stateL);
+
+      // selected tracks changes in the text part of the state
+      final selected = notifier.select((final state) => state.text);
+      selected.addListener(selectionL);
+
+      notifier.append('one');
+      expect(stateNotified, 1);
+      // selected notified
+      expect(selectNotified, 1);
+      expect(selected.value, 'one');
+
+      notifier.append('Two');
+      expect(stateNotified, 2);
+      // selected notified
+      expect(selectNotified, 2);
+      expect(selected.value, 'oneTwo');
+
+      selected.removeListener(selectionL);
+
+      notifier.append('Three');
+      expect(stateNotified, 3);
+      expect(notifier.state.value, 0);
+      expect(notifier.state.text, 'oneTwoThree');
+      // selected not notified
+      expect(selectNotified, 2);
+      expect(selected.value, 'oneTwo');
+    });
+  });
+
+  group('MMNotifier dispose', () {
+    test('state is tracked', () {
       final notifier = TNotifier();
       expect(notifier.isDisposed, false);
 
@@ -141,7 +145,7 @@ void main() {
       expect(notifier.isDisposed, true);
     });
 
-    test('is disposed when all listeners are removed', () {
+    test('when all listeners are removed', () {
       final manager = MMManager(
         TNotifier.new,
         autodispose: true,
@@ -166,7 +170,7 @@ void main() {
       expect(notifier.isDisposed, true);
     });
 
-    test('is disposed when all listeners are removed with selections', () {
+    test('when all listeners are removed including selections', () {
       final manager = MMManager(
         TNotifier.new,
         autodispose: true,
@@ -175,8 +179,8 @@ void main() {
       var stateNotified = 0;
       void stateL() => stateNotified++;
 
-      var selectionNotified = 0;
-      void selectionL() => selectionNotified++;
+      var selectNotified = 0;
+      void selectionL() => selectNotified++;
 
       final notifier = manager.notifier;
       notifier.addListener(stateL);
