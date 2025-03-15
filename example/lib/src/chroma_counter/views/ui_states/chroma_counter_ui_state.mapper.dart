@@ -72,9 +72,9 @@ mixin ChromaCounterUIStateMappable {
   }
 
   ChromaCounterUIStateCopyWith<ChromaCounterUIState, ChromaCounterUIState,
-          ChromaCounterUIState>
-      get copyWith => _ChromaCounterUIStateCopyWithImpl(
-          this as ChromaCounterUIState, $identity, $identity);
+      ChromaCounterUIState> get copyWith => _ChromaCounterUIStateCopyWithImpl<
+          ChromaCounterUIState, ChromaCounterUIState>(
+      this as ChromaCounterUIState, $identity, $identity);
   @override
   String toString() {
     return ChromaCounterUIStateMapper.ensureInitialized()
@@ -97,8 +97,8 @@ mixin ChromaCounterUIStateMappable {
 extension ChromaCounterUIStateValueCopy<$R, $Out>
     on ObjectCopyWith<$R, ChromaCounterUIState, $Out> {
   ChromaCounterUIStateCopyWith<$R, ChromaCounterUIState, $Out>
-      get $asChromaCounterUIState =>
-          $base.as((v, t, t2) => _ChromaCounterUIStateCopyWithImpl(v, t, t2));
+      get $asChromaCounterUIState => $base.as(
+          (v, t, t2) => _ChromaCounterUIStateCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ChromaCounterUIStateCopyWith<
@@ -134,5 +134,5 @@ class _ChromaCounterUIStateCopyWithImpl<$R, $Out>
   @override
   ChromaCounterUIStateCopyWith<$R2, ChromaCounterUIState, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _ChromaCounterUIStateCopyWithImpl($value, $cast, t);
+          _ChromaCounterUIStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
