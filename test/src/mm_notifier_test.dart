@@ -79,6 +79,43 @@ void main() {
       expect(selectionNotified, 1);
     });
 
+    test('stops notifying removed listeners for selection', () {
+      var stateNotified = 0;
+      void stateL() => stateNotified++;
+
+      var selectionNotified = 0;
+      void selectionL() => selectionNotified++;
+
+      final notifier = TNotifier();
+      notifier.addListener(stateL);
+
+      final selected = notifier.select((final state) => state.text);
+      selected.addListener(selectionL);
+
+      notifier.append('one');
+      expect(selected.value, 'one');
+      expect(notifier.state.value, 0);
+      expect(notifier.state.text, 'one');
+      expect(stateNotified, 1);
+      expect(selectionNotified, 1);
+
+      notifier.append('Two');
+      expect(selected.value, 'oneTwo');
+      expect(notifier.state.value, 0);
+      expect(notifier.state.text, 'oneTwo');
+      expect(stateNotified, 2);
+      expect(selectionNotified, 2);
+
+      selected.removeListener(selectionL);
+
+      notifier.append('Three');
+      expect(selected.value, 'oneTwo');
+      expect(notifier.state.value, 0);
+      expect(notifier.state.text, 'oneTwoThree');
+      expect(stateNotified, 3);
+      expect(selectionNotified, 2);
+    });
+
     test('selection cannot be mutated', () {
       var selectionNotified = 0;
       void selectionL() => selectionNotified++;
