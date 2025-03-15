@@ -20,8 +20,8 @@ abstract class MMNotifier<T> extends ChangeNotifier {
   /// Creates a minimal notifier with the given initial state
   MMNotifier(this._state);
 
-  int _listenersCount = 0;
-  bool _disposed = false;
+  var _listenersCount = 0;
+  var _disposed = false;
   T _state;
 
   /// Whether this notifier has been disposed. Subclasses can check this before
