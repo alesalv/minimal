@@ -66,6 +66,8 @@ linter:
     avoid_types_on_closure_parameters: false
     # too strict, makes code too verbose
     diagnostic_describe_all_properties: false
+    # incompatible with page_width: 100
+    lines_longer_than_80_chars: false
     # incompatible with prefer_single_quotes
     prefer_double_quotes: false
     # too strict, preferred but no need to enforce it
