@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'chroma_counter/views/pages/chroma_counter_page.dart';
 import 'counter/views/pages/counter_page.dart';
+import 'todos/views/pages/todos_page.dart';
 import 'version/views/widgets/version_panel.dart';
 
 class MinimalApp extends StatelessWidget {
@@ -75,6 +76,18 @@ class HomePage extends StatelessWidget {
                     );
                   },
                   child: const Text('Chroma Counter'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    unawaited(
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (final context) => const TodosPage(),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('Todos'),
                 ),
               ],
             ),
