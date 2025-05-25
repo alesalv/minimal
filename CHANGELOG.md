@@ -1,3 +1,10 @@
+## 2.0.2
+
+* Add Cursor rules
+* Update to Flutter 3.32.0
+* Update all lint rules
+* Update example dependencies
+
 ## 2.0.1
 
 * Update to Flutter 3.29.2
