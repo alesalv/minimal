@@ -10,7 +10,7 @@ dependencies:
   dart_mappable: ^4.5.0
   flutter:
     sdk: flutter
-  flutter_svg: ^2.0.17
+  flutter_svg: ^2.1.0
   intl: ^0.20.2
   minimal_mvn:
     path: ../
