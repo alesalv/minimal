@@ -1,0 +1,29 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# UI Design Guidelines
+
+<!-- Any dart file at any depth under a views folder at any depth -->
+files: lib/src/**/views/**/*.dart
+
+## Description
+Guidelines for UI components, widget structure, and responsive design patterns
+
+## Widget Structure
+- Keep widgets focused and composable with clear responsibilities
+- Flatten widget hierarchies where reasonable for better rendering performance
+
+## Responsive Design
+- Design mobile first
+- Use `LayoutBuilder` and `MediaQuery` for adaptive layouts
+- Centralize themes and styles in `ThemeData` for consistency
+- Design for different screen sizes and orientations using responsive breakpoints
+
+## Loading on UI
+- Use a loading indicator while fetching data
+
+## Errors on UI
+- Use an error indicator with appropriate messaging for error displays
+- Handle empty states gracefully in UI with clear messaging

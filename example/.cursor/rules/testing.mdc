@@ -1,0 +1,21 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Testing Guidelines
+
+<!-- Any dart file at any depth under test/ and integration_test/ -->
+files: test/**/*.dart, integration_test/**/*.dart
+
+## Description
+Standards for writing and organizing tests across different testing levels
+
+## Unit Testing
+- Follow the Arrange-Act-Assert convention for clear and maintainable tests
+- Use mocks for dependencies except for lightweight third-party services
+- Test business logic in isolation from the UI
+
+## Widget Testing
+- Write widget tests for all major UI components
+- Test user interactions and state changes

@@ -1,0 +1,51 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Flutter Architecture Guidelines
+
+<!-- Any dart file at any depth under lib/src/ -->
+files: lib/src/**/*.dart
+
+## Description
+These guidelines define the project's architectural approach using MVN (Model View Notifier) and folder structure conventions
+
+## Structure
+- Organize code according to feature-based MVN pattern:
+  - featureA/
+    - notifiers/
+    - models/
+      - data/
+      - data_sources/
+      - repositories/
+    - views/
+      - pages/
+      - ui_states/
+      - widgets/
+- Place cross-feature components in the `core` directory
+- Group shared widgets in `core/views/widgets` by type (animations, buttons, cards, etc)
+
+## Notifiers
+- Use MMNotifier for state management
+- Consider notifiers as state holders
+- For a notifier which holds a UI state, handle loading and error in the UI state explicitely
+- Usually use one notifier per page or per widget
+- Notifiers are focused on a single responsibility
+- Notifiers depend on repositories, and sometimes on other notifiers
+
+## Models
+- Use Mappable classes for API models as come from server (ie ItemApiModel)
+- Use Mappable classes for internal models (ie Item)
+- Use Mappable classes for UI state models (ie ItemUiState)
+- Implement repository pattern for persistance
+- Repositories orchestate between data sources (return Item)
+- Repositories can have from zero to many data sources
+- Usually repositories have at least local and remote data sources
+- Data sources access raw data (return ItemApiModel)
+
+## Views
+- Keep widgets small and focused
+- Extract reusable widgets
+- Each page widget must have a well defined corresponding UI state
+- Widget build() method only builds, doesn't contain any business logic

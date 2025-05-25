@@ -1,0 +1,18 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Error Handling Guidelines
+
+<!-- Any dart file at any depth under lib/src/ -->
+files: lib/src/**/*.dart
+
+## Description
+Standards for handling, logging, and displaying errors throughout the application
+
+## Rules
+- Throw errors when needed, and catch them at appropriate boundaries
+- Log errors with context
+- Present user-friendly error messages in the UI
+- Avoid silent failures; always handle or propagate errors

@@ -1,0 +1,18 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# State Management Guidelines
+
+<!-- Any dart file at any depth under a controllers folder at any depth -->
+files: lib/src/**/controllers/**/*.dart
+
+## Description
+Guidelines for state management using Minimal
+
+## Rules
+- Use Minimal as the primary state management and dependency injection solution
+- Use `MMManager` to provide a `MMNotifier`
+- Use `MMLocator` to provide repositories and services
+- Organize notifiers logically by feature

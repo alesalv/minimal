@@ -1,0 +1,19 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Git Workflow Guidelines
+
+<!-- Any file at any depth -->
+files: **/*
+
+## Description
+Standards for Git operations, commits, branches, and pull requests
+
+## Git Practices
+- Write atomic commits
+- Do not commit files that are not related to the current feature
+- When committing, write a short description of the changes you are making
+- When creating a new feature, create a new branch from the `main` branch
+- When merging a feature, merge the branch into the `main` branch

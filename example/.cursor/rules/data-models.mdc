@@ -1,0 +1,89 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Data Models Guidelines
+
+<!-- Any dart file at any depth under a models folder at any depth -->
+files: lib/src/**/models/**/*.dart
+
+## Description
+Guidelines for data models using Dart Mappable and JSON serialization. The application uses a three-layer data model pattern to handle data transformation and state management:
+
+1. **API Layer (ItemApiModel)**
+   - Represents the raw data structure as received from the server
+   - Contains all fields provided by the API
+   - Should match the API contract exactly
+   - Example: `ItemApiModel`
+
+2. **Domain Layer (Item)**
+   - Represents the internal data model
+   - Contains only the fields necessary for business logic
+   - Strips out unnecessary API fields
+   - Example: `Item`
+
+3. **UI Layer (ItemUiState)**
+   - Represents the data model optimized for UI rendering
+   - Contains parsed and formatted data ready for display
+   - Handles all UI-specific transformations
+   - Example: `ItemUiState`
+
+## Rules
+- Use Dart Mappable for defining immutable UI states
+- Each layer should have its own type definition
+- The UI layer should use the UI state data models, never directly the domain model or the API model
+- The UI state model should be derived from the domain model, not the API model
+- The domain model should be derived from the API model, not the UI state model
+- The repository should be the source of truth, and it returns the domain model (for example Item)
+- The repository use data sources, which return the API model (for example ItemApiModel)
+
+## Example
+Here's an example of each data model (ItemApiModel, Item, ItemUiState):
+
+```dart
+@MappableClass()
+class ItemApiModel with ItemApiModelMappable {
+  const ItemApiModel({
+    this.id = '',
+    this.images = const [],
+    this.price = '',
+    this.title = '',
+    this.desc = '',
+  });
+
+  factory ItemApiModel.fromJson(final JsonObj json) => ItemApiModelMapper.fromJson(json);
+
+  final String id;
+  final List<String> images;
+  final String price;
+  final String title;
+  final String desc;
+}
+
+@MappableClass()
+class Item with ItemMappable {
+  const Item({
+    required this.id,
+    required this.title,
+  });
+
+  factory Item.fromApiModel(final ItemApiModel model) => Item(id: model.id, title: model.title);
+
+  final String id;
+  final String title;
+}
+
+@MappableClass()
+class ItemUiState with ItemUiStateMappable {
+  const ItemUiState({
+    this.id = '',
+    this.title = '',
+  });
+
+  factory ItemUiState.fromModel(final Item model) => ItemUiState(id: model.id, title: model.title);
+
+  final String id;
+  final String title;
+}
+```

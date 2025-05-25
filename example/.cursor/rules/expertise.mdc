@@ -1,0 +1,24 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Project Expertise Guidelines
+
+<!-- Any dart file at any depth -->
+files: **/*.dart
+
+## Description
+Core expertise and technology stack guidelines for this project
+
+## Technology Stack
+- Flutter for cross-platform development
+- Dart as the primary programming language
+- Minimal for state management and dependency injection
+- Dart Mappable for immutable data models
+- Firebase for backend services
+
+## Architecture
+- MVN design pattern
+- Feature-first folder structure
+- Clean separation of concerns

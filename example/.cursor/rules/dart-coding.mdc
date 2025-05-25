@@ -1,0 +1,38 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Dart Coding Guidelines
+
+<!-- Any dart file at any depth -->
+files: **/*.dart
+
+## Description
+These guidelines apply to all Dart files in the project and outline basic coding principles, style conventions, and best practices
+
+## Key Principles
+- Write concise, technical Dart code with accurate examples
+- Use functional and declarative programming patterns
+- Choose descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`)
+- Keep functions and classes short (< 200 lines, < 10 public methods)
+
+## Code Style
+- Always use English for code and documentation
+- Use PascalCase for classes, camelCase for variables and functions, snake_case for files, UPPERCASE for constants
+
+## Best Practices
+- Use arrow syntax for simple methods and expression bodies for one-line getters/setters
+- Avoid nesting blocks; prefer early checks and returns
+- Pass and return parameters using RO-RO (Receive Object, Return Object)
+- Avoid magic numbers; use well-named constants
+- Follow an 100-character line limit and use trailing commas for better formatting
+- Follow the lint rules set for this project
+  - All lint rules are enabled in `all_lint_rules.yaml`
+  - Only specific rules are selectively disabled in `analysis_options.yaml`
+
+## Debugging
+- Prefer `debugPrint()` over `print()` for debugging
+
+@all_lint_rules.yaml
+@analysis_options.yaml

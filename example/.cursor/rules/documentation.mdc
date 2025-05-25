@@ -1,0 +1,19 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Documentation Guidelines
+
+<!-- Any dart file at any depth under lib/src/ -->
+files: lib/src/**/*.dart
+
+## Description
+Standards for code documentation and commenting
+
+## Documentation
+- Follow official documentation for best practices:
+  - [Flutter Documentation](mdc:https:/docs.flutter.dev)
+  - @Minimal Documentation
+- Document public classes and methods with clear descriptions, parameters, return values, and a code snippet taken from the codebase
+- Comment briefly only complex logic and non-obvious code decisions

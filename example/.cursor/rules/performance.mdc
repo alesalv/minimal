@@ -1,0 +1,20 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Performance Guidelines
+
+<!-- Any dart file at any depth under lib/src/ -->
+files: lib/src/**/*.dart
+
+## Description
+Best practices for optimizing application performance
+
+## Rules
+- Optimize list views with `ListView.builder`
+- Optimize image handling with `cached_network_image`
+- Use `const` widgets and flatten widget hierarchies for improved rendering efficiency
+- Handle asynchronous operations cleanly with proper cancellation during widget disposal
+- Minimize unnecessary rebuilds using memoization techniques
+- Implement pagination for large data sets
