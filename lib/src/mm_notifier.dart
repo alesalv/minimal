@@ -23,6 +23,7 @@ abstract class MMNotifier<T> extends ChangeNotifier {
   var _listenersCount = 0;
   var _disposed = false;
   T _state;
+  OnUnsubscribedCallback? _onUnsubscribed;
 
   /// Whether this notifier has been disposed. Subclasses can check this before
   /// performing asynchronous operations that might occur after disposal
@@ -98,9 +99,14 @@ abstract class MMNotifier<T> extends ChangeNotifier {
     }
   }
 
-  /// Callback that will be invoked when this notifier has no more
-  /// subscribers. There shouldn't be any reason to use this callback directly
-  OnUnsubscribedCallback? onUnsubscribed;
+  /// Sets the callback to invoke when this notifier has no more subscribers
+  ///
+  /// Example:
+  /// ```dart
+  /// notifier.onUnsubscribed = () => print('No more subscribers');
+  /// ```
+  // ignore: avoid_setters_without_getters
+  set onUnsubscribed(final OnUnsubscribedCallback cb) => _onUnsubscribed = cb;
 
   @override
   void addListener(final VoidCallback listener) {
@@ -114,7 +120,7 @@ abstract class MMNotifier<T> extends ChangeNotifier {
     _listenersCount--;
     if (_listenersCount <= 0) {
       _listenersCount = 0;
-      onUnsubscribed?.call();
+      _onUnsubscribed?.call();
     }
   }
 

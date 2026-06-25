@@ -136,6 +136,35 @@ void main() {
     });
   });
 
+  group('MMNotifier onUnsubscribed', () {
+    test('calls onUnsubscribed when all listeners are removed', () {
+      var called = false;
+      final notifier = TNotifier();
+      notifier.onUnsubscribed = () => called = true;
+
+      void l() {}
+      notifier.addListener(l);
+      expect(called, false);
+
+      notifier.removeListener(l);
+      expect(called, true);
+    });
+
+    test('does not call onUnsubscribed when some listeners remain', () {
+      var called = false;
+      final notifier = TNotifier();
+      notifier.onUnsubscribed = () => called = true;
+
+      void l1() {}
+      void l2() {}
+      notifier.addListener(l1);
+      notifier.addListener(l2);
+
+      notifier.removeListener(l1);
+      expect(called, false);
+    });
+  });
+
   group('MMNotifier dispose', () {
     test('state is tracked', () {
       final notifier = TNotifier();

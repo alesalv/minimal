@@ -1,3 +1,13 @@
+## 3.0.0
+
+* Make onUnsubscribed a write-only setter (breaking change)
+* Add tests for onUnsubscribed
+* Add Antigravity agent rules for example project
+* Update to Flutter 3.44.4
+* Update all lint rules
+* Update dependencies
+* Update example dependencies
+
 ## 2.0.2
 
 * Add Cursor rules

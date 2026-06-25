@@ -1,5 +1,6 @@
 name: minimal_example
 description: Example app for minimal package
+version: 1.0.0
 publish_to: none
 
 environment:

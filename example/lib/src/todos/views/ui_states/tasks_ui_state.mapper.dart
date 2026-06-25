@@ -1,6 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -22,13 +24,15 @@ class TasksUIStateMapper extends ClassMapperBase<TasksUIState> {
   final String id = 'TasksUIState';
 
   static List<Task> _$tasks(TasksUIState v) => v.tasks;
-  static const Field<TasksUIState, List<Task>> _f$tasks =
-      Field('tasks', _$tasks, opt: true, def: const []);
+  static const Field<TasksUIState, List<Task>> _f$tasks = Field(
+    'tasks',
+    _$tasks,
+    opt: true,
+    def: const [],
+  );
 
   @override
-  final MappableFields<TasksUIState> fields = const {
-    #tasks: _f$tasks,
-  };
+  final MappableFields<TasksUIState> fields = const {#tasks: _f$tasks};
 
   static TasksUIState _instantiate(DecodingData data) {
     return TasksUIState(tasks: data.dec(_f$tasks));
@@ -48,34 +52,43 @@ class TasksUIStateMapper extends ClassMapperBase<TasksUIState> {
 
 mixin TasksUIStateMappable {
   String toJson() {
-    return TasksUIStateMapper.ensureInitialized()
-        .encodeJson<TasksUIState>(this as TasksUIState);
+    return TasksUIStateMapper.ensureInitialized().encodeJson<TasksUIState>(
+      this as TasksUIState,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return TasksUIStateMapper.ensureInitialized()
-        .encodeMap<TasksUIState>(this as TasksUIState);
+    return TasksUIStateMapper.ensureInitialized().encodeMap<TasksUIState>(
+      this as TasksUIState,
+    );
   }
 
   TasksUIStateCopyWith<TasksUIState, TasksUIState, TasksUIState> get copyWith =>
       _TasksUIStateCopyWithImpl<TasksUIState, TasksUIState>(
-          this as TasksUIState, $identity, $identity);
+        this as TasksUIState,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return TasksUIStateMapper.ensureInitialized()
-        .stringifyValue(this as TasksUIState);
+    return TasksUIStateMapper.ensureInitialized().stringifyValue(
+      this as TasksUIState,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return TasksUIStateMapper.ensureInitialized()
-        .equalsValue(this as TasksUIState, other);
+    return TasksUIStateMapper.ensureInitialized().equalsValue(
+      this as TasksUIState,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return TasksUIStateMapper.ensureInitialized()
-        .hashValue(this as TasksUIState);
+    return TasksUIStateMapper.ensureInitialized().hashValue(
+      this as TasksUIState,
+    );
   }
 }
 
@@ -103,7 +116,10 @@ class _TasksUIStateCopyWithImpl<$R, $Out>
   @override
   ListCopyWith<$R, Task, TaskCopyWith<$R, Task, Task>> get tasks =>
       ListCopyWith(
-          $value.tasks, (v, t) => v.copyWith.$chain(t), (v) => call(tasks: v));
+        $value.tasks,
+        (v, t) => v.copyWith.$chain(t),
+        (v) => call(tasks: v),
+      );
   @override
   $R call({List<Task>? tasks}) =>
       $apply(FieldCopyWithData({if (tasks != null) #tasks: tasks}));
@@ -113,6 +129,7 @@ class _TasksUIStateCopyWithImpl<$R, $Out>
 
   @override
   TasksUIStateCopyWith<$R2, TasksUIState, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _TasksUIStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _TasksUIStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

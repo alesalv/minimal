@@ -1,6 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -25,8 +27,12 @@ class TaskMapper extends ClassMapperBase<Task> {
   static String _$label(Task v) => v.label;
   static const Field<Task, String> _f$label = Field('label', _$label);
   static bool _$isDone(Task v) => v.isDone;
-  static const Field<Task, bool> _f$isDone =
-      Field('isDone', _$isDone, opt: true, def: false);
+  static const Field<Task, bool> _f$isDone = Field(
+    'isDone',
+    _$isDone,
+    opt: true,
+    def: false,
+  );
 
   @override
   final MappableFields<Task> fields = const {
@@ -37,9 +43,10 @@ class TaskMapper extends ClassMapperBase<Task> {
 
   static Task _instantiate(DecodingData data) {
     return Task(
-        id: data.dec(_f$id),
-        label: data.dec(_f$label),
-        isDone: data.dec(_f$isDone));
+      id: data.dec(_f$id),
+      label: data.dec(_f$label),
+      isDone: data.dec(_f$isDone),
+    );
   }
 
   @override
@@ -99,19 +106,22 @@ class _TaskCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Task, $Out>
   @override
   late final ClassMapperBase<Task> $mapper = TaskMapper.ensureInitialized();
   @override
-  $R call({String? id, String? label, bool? isDone}) =>
-      $apply(FieldCopyWithData({
-        if (id != null) #id: id,
-        if (label != null) #label: label,
-        if (isDone != null) #isDone: isDone
-      }));
+  $R call({String? id, String? label, bool? isDone}) => $apply(
+    FieldCopyWithData({
+      if (id != null) #id: id,
+      if (label != null) #label: label,
+      if (isDone != null) #isDone: isDone,
+    }),
+  );
   @override
   Task $make(CopyWithData data) => Task(
-      id: data.get(#id, or: $value.id),
-      label: data.get(#label, or: $value.label),
-      isDone: data.get(#isDone, or: $value.isDone));
+    id: data.get(#id, or: $value.id),
+    label: data.get(#label, or: $value.label),
+    isDone: data.get(#isDone, or: $value.isDone),
+  );
 
   @override
   TaskCopyWith<$R2, Task, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _TaskCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+
