@@ -60,6 +60,28 @@ void main() {
       expect(second.state.value, 0);
     });
 
+    test('does not dispose the current instance when a stale one is unsubscribed', () {
+      final manager = MMManager(
+        TNotifier.new,
+        autodispose: true,
+      );
+
+      final stale = manager.notifier;
+      void l1() {}
+      stale.addListener(l1);
+
+      // replaces the instance, while the stale one is still listened
+      manager.override(TNotifier.new);
+      final current = manager.notifier;
+      void l2() {}
+      current.addListener(l2);
+
+      stale.removeListener(l1);
+      expect(stale.isDisposed, true);
+      expect(current.isDisposed, false);
+      expect(manager.notifier, same(current));
+    });
+
     test('throws an error when accessing notifier after disposal', () {
       final manager = MMManager(
         TNotifier.new,

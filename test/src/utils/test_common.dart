@@ -1,5 +1,16 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:minimal_mvn/minimal_mvn.dart';
+
+/// Collects the errors reported to [FlutterError.onError] during a test, e.g.
+/// the ones thrown by listeners, which ChangeNotifier catches and reports
+List<FlutterErrorDetails> trackFlutterErrors() {
+  final errors = <FlutterErrorDetails>[];
+  final onError = FlutterError.onError;
+  FlutterError.onError = errors.add;
+  addTearDown(() => FlutterError.onError = onError);
+  return errors;
+}
 
 @immutable
 class TState {

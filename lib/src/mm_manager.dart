@@ -43,7 +43,7 @@ class MMManager<T extends MMNotifier<dynamic>> {
   /// ```
   T get notifier {
     final creator = _override ?? _create;
-    _instance ??= creator()..onUnsubscribed = _onUnsubscribed;
+    _instance ??= autodispose ? (creator()..onUnsubscribed = _onUnsubscribed) : creator();
     return _instance!;
   }
 
@@ -59,13 +59,17 @@ class MMManager<T extends MMNotifier<dynamic>> {
   @visibleForTesting
   void override(final T Function() override) {
     _override = override;
+    // the replaced instance must not dispose the next one: once unsubscribed,
+    // it disposes only itself
+    final replaced = _instance;
+    if (autodispose && replaced != null) {
+      replaced.onUnsubscribed = replaced.dispose;
+    }
     _instance = null;
   }
 
   void _onUnsubscribed() {
-    if (autodispose) {
-      _instance?.dispose();
-      _instance = null;
-    }
+    _instance?.dispose();
+    _instance = null;
   }
 }

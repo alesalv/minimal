@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 
 /// Callback invoked when a notifier has no more subscribers
@@ -20,8 +22,9 @@ abstract class MMNotifier<T> extends ChangeNotifier {
   /// Creates a minimal notifier with the given initial state
   MMNotifier(this._state);
 
-  var _listenersCount = 0;
   var _disposed = false;
+  // whether it got listeners since it was last unsubscribed
+  var _listened = false;
   T _state;
   OnUnsubscribedCallback? _onUnsubscribed;
 
@@ -69,17 +72,8 @@ abstract class MMNotifier<T> extends ChangeNotifier {
   ///   ),
   /// );
   /// ```
-  ValueListenable<S> select<S>(final S Function(T state) selector) {
-    final notifier = _MMSelector(() => selector(_state));
-    // the moment selector is subscribed, start listening to the notifier
-    // for its changes
-    notifier.onAddListener = () => addListener(notifier.notify);
-    // the moment selector is unsubscribed, stop listening to the notifier
-    // for its changes
-    // ignore: cascade_invocations
-    notifier.onRemoveListener = () => removeListener(notifier.notify);
-    return notifier;
-  }
+  ValueListenable<S> select<S>(final S Function(T state) selector) =>
+      _MMSelector<T, S>(this, selector);
 
   /// Mutates the notifier's state and notifies its listeners
   ///
@@ -111,15 +105,17 @@ abstract class MMNotifier<T> extends ChangeNotifier {
   @override
   void addListener(final VoidCallback listener) {
     super.addListener(listener);
-    _listenersCount++;
+    _listened = true;
   }
 
+  // ChangeNotifier ignores listeners which aren't registered, so relying on
+  // hasListeners, rather than on a count, a listener removed twice, or never
+  // added, doesn't count as an unsubscription
   @override
   void removeListener(final VoidCallback listener) {
     super.removeListener(listener);
-    _listenersCount--;
-    if (_listenersCount <= 0) {
-      _listenersCount = 0;
+    if (!hasListeners && _listened) {
+      _listened = false;
       _onUnsubscribed?.call();
     }
   }
@@ -132,26 +128,101 @@ abstract class MMNotifier<T> extends ChangeNotifier {
   }
 }
 
-class _MMSelector<T> extends ValueNotifier<T> {
-  _MMSelector(this._getValue) : super(_getValue());
+class _MMSelector<T, S> extends ChangeNotifier implements ValueListenable<S> {
+  _MMSelector(this._parent, this._selector)
+      : _source = _parent._state,
+        _value = _selector(_parent._state) {
+    _latest = this;
+  }
 
-  final T Function() _getValue;
-  VoidCallback? onAddListener;
-  VoidCallback? onRemoveListener;
+  // the latest selection created, while it hasn't been listened yet
+  static _MMSelector<dynamic, dynamic>? _latest;
 
-  void notify() {
-    value = _getValue();
+  final MMNotifier<T> _parent;
+  // always created by select() with the parent's own T
+  // ignore: unsafe_variance
+  final S Function(T state) _selector;
+  S _value;
+  // the parent's state the value was selected from
+  T _source;
+  var _listening = false;
+  // whether listeners were removed since the last notification
+  var _removedListeners = false;
+  late final VoidCallback _onParentChanged = _select;
+
+  // while not listening to the parent, the value may be stale
+  @override
+  S get value =>
+      _listening || identical(_source, _parent._state) ? _value : _selector(_parent._state);
+
+  void _select() {
+    final state = _parent._state;
+    _source = state;
+    final value = _selector(state);
+    if (_value == value) {
+      return;
+    }
+    _value = value;
+    notifyListeners();
+    // listeners removed while being notified are dropped only afterwards
+    if (_removedListeners) {
+      _removedListeners = false;
+      _checkUnlistened();
+    }
   }
 
   @override
   void addListener(final VoidCallback listener) {
-    onAddListener?.call();
+    // the moment selector is subscribed, start listening to the notifier for
+    // its changes, catching up with the ones it missed
+    if (!_listening) {
+      final state = _parent._state;
+      if (!identical(_source, state)) {
+        _source = state;
+        _value = _selector(state);
+      }
+      if (identical(_latest, this)) {
+        _latest = null;
+      }
+      _listening = true;
+      _parent.addListener(_onParentChanged);
+    }
     super.addListener(listener);
   }
 
   @override
   void removeListener(final VoidCallback listener) {
-    onRemoveListener?.call();
     super.removeListener(listener);
+    if (hasListeners) {
+      _removedListeners = true;
+    } else {
+      _checkUnlistened();
+    }
   }
+
+  void _checkUnlistened() {
+    // the moment selector is unsubscribed, stop listening to the notifier for
+    // its changes
+    if (!hasListeners && _listening) {
+      // unless a new selection of the same autodispose notifier, not listened
+      // yet, is most likely replacing this one, e.g. select() called in
+      // build(): leaving first would momentarily unsubscribe the notifier,
+      // which would be disposed. Then leave once it had the chance to subscribe
+      if (identical(_latest?._parent, _parent) && _parent._onUnsubscribed != null) {
+        scheduleMicrotask(_stopListening);
+      } else {
+        _stopListening();
+      }
+    }
+  }
+
+  void _stopListening() {
+    if (!hasListeners && _listening) {
+      _listening = false;
+      _parent.removeListener(_onParentChanged);
+    }
+  }
+
+  @override
+  String toString() => '${describeIdentity(this)}($value)';
 }
