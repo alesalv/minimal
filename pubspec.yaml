@@ -1,12 +1,11 @@
 name: minimal_mvn
-description: A minimal state management solution for Flutter apps using the Model-View-Notifier (MVN) pattern
-version: 3.0.0
+description: A minimal state management solution for Dart and Flutter apps using the Model-View-Notifier (MVN) pattern
+version: 4.0.0
 repository: https://github.com/alesalv/minimal
 homepage: https://github.com/alesalv/minimal
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.0"
+  sdk: ">=3.10.0 <4.0.0"
 
 topics:
   - state-management
@@ -15,12 +14,8 @@ topics:
   - architecture
 
 dependencies:
-  flutter:
-    sdk: flutter
+  listen: ^1.0.1
+  meta: ^1.19.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-flutter:
-  uses-material-design: true
+  test: ^1.32.0
