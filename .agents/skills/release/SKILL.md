@@ -5,7 +5,7 @@ description: Automates the full release process for the Minimal package. Invoke 
 
 # Release Skill for Minimal
 
-This skill automates the release process for the `minimal_mvn` Flutter package.
+This skill automates the release process for the `minimal_mvn` Dart and Flutter package.
 
 ## Prerequisites
 
@@ -53,11 +53,11 @@ This skill automates the release process for the `minimal_mvn` Flutter package.
 
 1. Upgrade dependencies:
    ```
-   fvm flutter pub upgrade --major-versions
+   fvm dart pub upgrade --major-versions
    ```
 2. Resolve and lock:
    ```
-   fvm flutter pub get
+   fvm dart pub get
    ```
 3. Commit:
    ```
@@ -149,7 +149,7 @@ This skill automates the release process for the `minimal_mvn` Flutter package.
 
 1. Run tests for the minimal package:
    ```
-   fvm flutter test
+   fvm dart test
    ```
 2. Run tests for the example:
    ```
@@ -240,7 +240,7 @@ Loop until the user says to proceed.
 >
 > **To publish to pub.dev, run this command manually:**
 > ```
-> fvm flutter pub publish
+> fvm dart pub publish
 > ```
 >
 > After publishing, verify at: https://pub.dev/packages/minimal_mvn

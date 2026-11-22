@@ -1,9 +1,9 @@
 // Let's make the tests more readable and explicit
 // ignore_for_file: cascade_invocations
 
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:listen/listen.dart';
 import 'package:minimal_mvn/minimal_mvn.dart';
+import 'package:test/test.dart';
 
 import 'utils/test_common.dart';
 
@@ -40,10 +40,7 @@ void main() {
     });
 
     test('disposes instance when autodispose is true', () {
-      final manager = MMManager(
-        TNotifier.new,
-        autodispose: true,
-      );
+      final manager = MMManager(TNotifier.new, autodispose: true);
 
       final first = manager.notifier;
       first.increment();
@@ -60,11 +57,8 @@ void main() {
       expect(second.state.value, 0);
     });
 
-    test('throws an error when accessing notifier after disposal', () {
-      final manager = MMManager(
-        TNotifier.new,
-        autodispose: true,
-      );
+    test('reports an error when accessing notifier after disposal', () {
+      final manager = MMManager(TNotifier.new, autodispose: true);
 
       final notifier = manager.notifier;
       notifier.increment();
@@ -75,11 +69,24 @@ void main() {
         ..addListener(l)
         ..removeListener(l);
 
+      final previousOnError = Listenable.onError;
+      Object? reportedError;
+      ErrorContext? reportedContext;
+      Listenable.onError =
+          (final Object error, final StackTrace? stackTrace, final ErrorContext context) {
+            reportedError = error;
+            reportedContext = context;
+            previousOnError(error, stackTrace, context);
+          };
+      addTearDown(() => Listenable.onError = previousOnError);
+
       expect(
         notifier.increment,
-        throwsA(isA<FlutterError>()),
+        throwsA(isA<StateError>()),
         reason: 'Accessing notifier after disposal will throw an error',
       );
+      expect(reportedError, isA<StateError>());
+      expect(reportedContext, ErrorContext.assertion);
     });
   });
 }

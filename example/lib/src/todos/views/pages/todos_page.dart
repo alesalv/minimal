@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../widgets/done_panel.dart';
 import '../widgets/progress_panel.dart';
@@ -20,12 +20,7 @@ class TodosPage extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
-          children: [
-            ProgressPanel(),
-            DonePanel(),
-          ],
-        ),
+        body: const TabBarView(children: [ProgressPanel(), DonePanel()]),
       ),
     );
   }

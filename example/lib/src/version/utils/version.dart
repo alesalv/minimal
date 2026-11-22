@@ -9,8 +9,6 @@ import 'package:flutter/services.dart' show rootBundle;
 /// ```
 Future<String> getPackageVersion() async {
   final content = await rootBundle.loadString('../pubspec.yaml');
-  final versionLine = content.split('\n').firstWhere(
-        (final line) => line.startsWith('version:'),
-      );
+  final versionLine = content.split('\n').firstWhere((final line) => line.startsWith('version:'));
   return versionLine.split(':')[1].trim();
 }

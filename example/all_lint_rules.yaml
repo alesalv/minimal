@@ -80,6 +80,7 @@ linter:
     - exhaustive_cases
     - file_names
     - flutter_style_todos
+    - future_sync_value
     - hash_and_equals
     - implementation_imports
     - implicit_call_tearoffs
@@ -96,6 +97,7 @@ linter:
     - lines_longer_than_80_chars
     - literal_only_boolean_expressions
     - matching_super_parameters
+    - migrate_design_widgets
     - missing_code_block_language_in_doc_comment
     - missing_whitespace_between_adjacent_strings
     - no_adjacent_strings_in_list
@@ -217,6 +219,7 @@ linter:
     - unnecessary_string_escapes
     - unnecessary_string_interpolations
     - unnecessary_this
+    - unnecessary_this_alias
     - unnecessary_to_list_in_spreads
     - unnecessary_type_name_in_constructor
     - unnecessary_unawaited
@@ -237,7 +240,6 @@ linter:
     - use_late_for_private_fields_and_variables
     - use_named_constants
     - use_null_aware_elements
-    - use_primary_constructors
     - use_raw_strings
     - use_rethrow_when_possible
     - use_setters_to_change_properties

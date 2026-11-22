@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../models/data/task.dart';
 
 class TasksPanel extends StatelessWidget {
-  const TasksPanel({
-    required this.tasks,
-    required this.onTap,
-    super.key,
-  });
+  const TasksPanel({required this.tasks, required this.onTap, super.key});
 
   final List<Task> tasks;
   final void Function(String) onTap;

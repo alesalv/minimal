@@ -6,7 +6,7 @@
 
 # Minimal MVN
 
-A minimal state management package for Flutter. Part of a minimalistic architecture based on the MVN (Model-View-Notifier) pattern.
+A minimal state management package for Dart and Flutter. Part of a minimalistic architecture based on the MVN (Model-View-Notifier) pattern.
 
 This package aims for the simplest possible architecture, making it easier to understand and use, while offering an alternative to the growing complexity found in many other state management solutions, in an attempt to minimize side effects.
 
@@ -25,6 +25,8 @@ A more advanced counter widget, which increases the counter, and randomly change
 The complete source code is in the [example folder](/example).
 
 ## Getting Started
+
+> **Requirements:** Dart `>=3.10.0` (for pure Dart apps) or Flutter `>=3.50.0` (for Flutter apps). For older Flutter versions, use `minimal_mvn: ^3.0.0`.
 
 Add Minimal to your pubspec.yaml:
 ```bash
@@ -119,6 +121,34 @@ return ListenableBuilder(
     color: notifier.state.backgroundColor,
   ),
 );
+```
+
+### Pure Dart Usage
+
+Minimal works in pure Dart apps (CLI, servers, shared domain packages) with no Flutter dependency:
+
+```dart
+import 'package:minimal_mvn/minimal_mvn.dart';
+
+class CounterNotifier extends MMNotifier<int> {
+  CounterNotifier() : super(0);
+
+  void increment() => notify(state + 1);
+}
+
+final counterManager = MMManager(CounterNotifier.new, autodispose: true);
+
+void main() {
+  final counter = counterManager.notifier;
+  final isEven = counter.select((count) => count.isEven);
+
+  void onChange() => print('count=${counter.state}, isEven=${isEven.value}');
+
+  isEven.addListener(onChange);
+  counter.increment(); // prints: count=1, isEven=false
+  counter.increment(); // prints: count=2, isEven=true
+  isEven.removeListener(onChange); // autodisposes when last listener is removed
+}
 ```
 
 ## Testing

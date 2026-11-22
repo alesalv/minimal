@@ -4,11 +4,7 @@ part 'task.mapper.dart';
 
 @MappableClass()
 class Task with TaskMappable {
-  const Task({
-    required this.id,
-    required this.label,
-    this.isDone = false,
-  });
+  const Task({required this.id, required this.label, this.isDone = false});
 
   final String id;
   final String label;

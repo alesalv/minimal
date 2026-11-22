@@ -1,24 +1,15 @@
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 import 'package:minimal_mvn/minimal_mvn.dart';
 
 @immutable
 class TState {
-  const TState({
-    required this.value,
-    required this.text,
-  });
+  const TState({required this.value, required this.text});
 
   final int value;
   final String text;
 
-  TState copyWith({
-    final int? value,
-    final String? text,
-  }) =>
-      TState(
-        value: value ?? this.value,
-        text: text ?? this.text,
-      );
+  TState copyWith({final int? value, final String? text}) =>
+      TState(value: value ?? this.value, text: text ?? this.text);
 
   @override
   bool operator ==(final Object other) =>

@@ -1,7 +1,5 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../notifiers/chroma_counter_notifier.dart';
 import '../widgets/chroma_counter.dart';
@@ -12,9 +10,7 @@ class ChromaCounterPage extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chroma Counter'),
-      ),
+      appBar: AppBar(title: const Text('Chroma Counter')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -24,16 +20,12 @@ class ChromaCounterPage extends StatelessWidget {
             const ChromaCounter(),
             ElevatedButton(
               onPressed: () {
-                unawaited(
-                  showModalBottomSheet<void>(
-                    context: context,
-                    builder: (final context) => const _BottomSheetContent(),
-                    isScrollControlled: true,
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height * 0.9,
-                    ),
-                    useSafeArea: true,
-                  ),
+                showModalBottomSheet<void>(
+                  context: context,
+                  builder: (final context) => const _BottomSheetContent(),
+                  isScrollControlled: true,
+                  constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+                  useSafeArea: true,
                 );
               },
               child: const Text('Reveal'),
@@ -79,14 +71,8 @@ class _BottomSheetContent extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Center(
-            child: ChromaCounter(),
-          ),
-          Positioned(
-            right: 16,
-            bottom: 32,
-            child: _Button(),
-          ),
+          Center(child: ChromaCounter()),
+          Positioned(right: 16, bottom: 32, child: _Button()),
         ],
       ),
     );

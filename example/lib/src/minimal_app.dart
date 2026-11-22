@@ -1,7 +1,5 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'chroma_counter/views/pages/chroma_counter_page.dart';
 import 'counter/views/pages/counter_page.dart';
@@ -36,11 +34,7 @@ class HomePage extends StatelessWidget {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              'assets/minimal.svg',
-              width: 24,
-              height: 24,
-            ),
+            SvgPicture.asset('assets/minimal.svg', width: 24, height: 24),
             const SizedBox(width: 8),
             const Text('Minimal'),
           ],
@@ -55,23 +49,17 @@ class HomePage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    unawaited(
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (final context) => const CounterPage(),
-                        ),
-                      ),
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(builder: (final context) => const CounterPage()),
                     );
                   },
                   child: const Text('Counter'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    unawaited(
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (final context) => const ChromaCounterPage(),
-                        ),
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (final context) => const ChromaCounterPage(),
                       ),
                     );
                   },
@@ -79,24 +67,16 @@ class HomePage extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    unawaited(
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (final context) => const TodosPage(),
-                        ),
-                      ),
-                    );
+                    Navigator.of(
+                      context,
+                    ).push(MaterialPageRoute<void>(builder: (final context) => const TodosPage()));
                   },
                   child: const Text('Todos'),
                 ),
               ],
             ),
           ),
-          const Positioned(
-            right: 16,
-            bottom: 16,
-            child: VersionPanel(),
-          ),
+          const Positioned(right: 16, bottom: 16, child: VersionPanel()),
         ],
       ),
     );

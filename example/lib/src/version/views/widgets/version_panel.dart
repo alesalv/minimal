@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../notifiers/version_notifier.dart';
 
@@ -25,7 +25,7 @@ class _VersionPanelState extends State<VersionPanel> {
     final notifier = versionNotifierManager.notifier;
     return ListenableBuilder(
       listenable: notifier,
-      builder: (final _, final __) => Text(
+      builder: (final _, final _) => Text(
         notifier.state,
         style: const TextStyle(
           fontSize: 12,

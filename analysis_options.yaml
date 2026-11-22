@@ -16,6 +16,7 @@ analyzer:
     - "test/.test_coverage.dart"
     - "bin/cache/**"
     - "lib/generated_plugin_registrant.dart"
+    - build/**
 
   # More information at:
   # https://dart.dev/guides/language/analysis-options#enabling-additional-type-checks

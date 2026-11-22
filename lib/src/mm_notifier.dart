@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'package:listen/listen.dart';
+import 'package:meta/meta.dart';
 
 /// Callback invoked when a notifier has no more subscribers
 typedef OnUnsubscribedCallback = void Function();
@@ -76,7 +77,6 @@ abstract class MMNotifier<T> extends ChangeNotifier {
     notifier.onAddListener = () => addListener(notifier.notify);
     // the moment selector is unsubscribed, stop listening to the notifier
     // for its changes
-    // ignore: cascade_invocations
     notifier.onRemoveListener = () => removeListener(notifier.notify);
     return notifier;
   }

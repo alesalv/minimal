@@ -1,9 +1,9 @@
 import 'minimal_mvn.dart';
 
-/// A minimal state management package for Flutter
+/// A minimal state management package for Dart and Flutter
 ///
-/// This package provides a simple and efficient way to manage state in Flutter
-/// applications using the MVN (Model-View-Notifier) pattern.
+/// This package provides a simple and efficient way to manage state in Dart
+/// and Flutter applications using the MVN (Model-View-Notifier) pattern.
 ///
 /// The main components are:
 /// * [MMNotifier] - Minimal notifier for all notifiers that manage state

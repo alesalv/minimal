@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:minimal_example/src/chroma_counter/notifiers/chroma_counter_notifier.dart';
 import 'package:minimal_example/src/chroma_counter/views/widgets/chroma_counter.dart';
 
@@ -29,9 +29,7 @@ void main() {
 }
 
 Color _getContainerColor(final WidgetTester tester) {
-  final container = tester.widget<AnimatedContainer>(
-    find.byType(AnimatedContainer),
-  );
+  final container = tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
   final decoration = container.decoration! as BoxDecoration;
   return decoration.color!;
 }

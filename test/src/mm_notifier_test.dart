@@ -1,8 +1,8 @@
 // Let's make the tests more readable and explicit
 // ignore_for_file: cascade_invocations
-import 'package:flutter/foundation.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:listen/listen.dart';
 import 'package:minimal_mvn/minimal_mvn.dart';
+import 'package:test/test.dart';
 
 import 'utils/test_common.dart';
 
@@ -175,10 +175,7 @@ void main() {
     });
 
     test('when all listeners are removed', () {
-      final manager = MMManager(
-        TNotifier.new,
-        autodispose: true,
-      );
+      final manager = MMManager(TNotifier.new, autodispose: true);
 
       var notified = 0;
       void l1() => notified++;
@@ -200,10 +197,7 @@ void main() {
     });
 
     test('when all listeners are removed including selections', () {
-      final manager = MMManager(
-        TNotifier.new,
-        autodispose: true,
-      );
+      final manager = MMManager(TNotifier.new, autodispose: true);
 
       var stateNotified = 0;
       void stateL() => stateNotified++;

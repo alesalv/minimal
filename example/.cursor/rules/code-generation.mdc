@@ -18,7 +18,7 @@ Guidelines for code generation using build_runner, Dart Mappable, and other code
   - Other generated code
 - Use this command for code generation:
   ```bash
-  fvm dart run build_runner build --delete-conflicting-outputs
+  fvm dart run build_runner build
   ```
 - Run code generation after:
   - Adding new Mappable classes

@@ -8,7 +8,7 @@ import '../views/ui_states/tasks_ui_state.dart';
 
 class ProgressNotifier extends MMNotifier<TasksUIState> {
   ProgressNotifier(this.tasksRepository)
-      : super(TasksUIState(tasks: tasksRepository.read().progress)) {
+    : super(TasksUIState(tasks: tasksRepository.read().progress)) {
     _tasksSubscription = tasksRepository.watch().listen(_onTasks);
   }
 

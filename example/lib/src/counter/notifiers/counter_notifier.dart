@@ -8,5 +8,7 @@ class CounterNotifier extends MMNotifier<int> {
 
 final MMManager<CounterNotifier> counterManager = MMManager(CounterNotifier.new);
 
-final MMManager<CounterNotifier> disposableCounterManager =
-    MMManager(CounterNotifier.new, autodispose: true);
+final MMManager<CounterNotifier> disposableCounterManager = MMManager(
+  CounterNotifier.new,
+  autodispose: true,
+);

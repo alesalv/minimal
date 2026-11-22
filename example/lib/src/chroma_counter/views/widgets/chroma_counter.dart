@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../notifiers/chroma_counter_notifier.dart';
 
@@ -11,7 +11,7 @@ class ChromaCounter extends StatelessWidget {
 
     return ListenableBuilder(
       listenable: notifier,
-      builder: (final _, final __) {
+      builder: (final _, final _) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
@@ -24,10 +24,7 @@ class ChromaCounter extends StatelessWidget {
           child: Center(
             child: Text(
               '${notifier.state.count}',
-              style: const TextStyle(
-                fontSize: 48,
-                color: Colors.white,
-              ),
+              style: const TextStyle(fontSize: 48, color: Colors.white),
             ),
           ),
         );

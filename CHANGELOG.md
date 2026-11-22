@@ -1,3 +1,13 @@
+## 4.0.0
+
+* Migrate to a pure Dart package using `package:listen` and `package:meta` (breaking change: requires Dart >=3.10.0 / Flutter >=3.50.0)
+* Migrate example app to `package:material_ui`
+* Update format to Dart 3.10.0 and onwards
+* Update to Flutter 3.50.0
+* Update all lint rules
+* Update dependencies
+* Update example dependencies
+
 ## 3.0.0
 
 * Make onUnsubscribed a write-only setter (breaking change)

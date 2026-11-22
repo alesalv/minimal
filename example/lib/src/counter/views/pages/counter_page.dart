@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../notifiers/counter_notifier.dart';
 
@@ -8,17 +8,12 @@ class CounterPage extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Counter'),
-      ),
+      appBar: AppBar(title: const Text('Counter')),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 16,
-          children: [
-            _CounterPanel(),
-            _DisposableCounterPanel(),
-          ],
+          children: [_CounterPanel(), _DisposableCounterPanel()],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -41,14 +36,11 @@ class _CounterPanel extends StatelessWidget {
     final notifier = counterManager.notifier;
     return ListenableBuilder(
       listenable: notifier,
-      builder: (final _, final __) {
+      builder: (final _, final _) {
         return Column(
           children: [
             const Text('You have pushed the button this many times:'),
-            Text(
-              notifier.state.toString(),
-              style: const TextStyle(fontSize: 48),
-            ),
+            Text(notifier.state.toString(), style: const TextStyle(fontSize: 48)),
           ],
         );
       },
@@ -64,14 +56,11 @@ class _DisposableCounterPanel extends StatelessWidget {
     final notifier = disposableCounterManager.notifier;
     return ListenableBuilder(
       listenable: notifier,
-      builder: (final _, final __) {
+      builder: (final _, final _) {
         return Column(
           children: [
             const Text('You have pushed the button this many times:'),
-            Text(
-              notifier.state.toString(),
-              style: const TextStyle(fontSize: 48),
-            ),
+            Text(notifier.state.toString(), style: const TextStyle(fontSize: 48)),
           ],
         );
       },

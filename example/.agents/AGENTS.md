@@ -114,7 +114,7 @@ The application uses a three-layer data model pattern to handle data transformat
 
 ## Code Generation
 - Generate code for Mappable classes, JSON serialization, and other generated code.
-- Use this command for code generation: `fvm dart run build_runner build --delete-conflicting-outputs` (or `scripts/generate_models.sh`)
+- Use this command for code generation: `fvm dart run build_runner build` (or `scripts/generate_models.sh`)
 - Run code generation after adding or modifying Mappable classes
 
 ## Error Handling
